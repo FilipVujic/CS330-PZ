@@ -15,10 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -28,11 +30,11 @@ import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -53,11 +55,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Home extends AppCompatActivity {
 
-    public static JSONArray jsonArray;
-    public static String [] nameArray;
+    ArrayList<Recipe> dataModels;
+    private static CustomAdapter adapter;
 
     //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -66,108 +75,80 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         final EditText searchField = (EditText) findViewById(R.id.home_search);
+        final TextView resultField = (TextView) findViewById(R.id.home_result);
+        final ListView listView = (ListView) findViewById(R.id.listViewID);
 
+        dataModels = new ArrayList<>();
 
-        //Log.e("Report", getRecipesJSON().optString("title"));
+        dataModels.add(new Recipe(5, "mimica", null, "Test1", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
+        dataModels.add(new Recipe(6, "mimica", null, "Test2", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
+        dataModels.add(new Recipe(7, "mimica", null, "Test3", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
 
-        JSONArray jsonArray;
+        adapter = new CustomAdapter(dataModels, getApplicationContext());
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Recipe dataModel= dataModels.get(position);
+
+                Snackbar.make(view, dataModel.getTitle()+ "\n" + dataModel.getSynopsis(), Snackbar.LENGTH_LONG)
+                        .setAction("No action", null).show();
+            }
+        });
 
         AsyncTask asyncTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
 
-                String result = null;
-                try {
-                    URL url = new URL(MainActivity.url + "/webresources/entity.recipe");
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                String url = MainActivity.url.toString();
+                //+ "/webresources/entity.user"
+                //+ "/" + username;
 
-                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                    result = inputStreamToString(in);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(url)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
+
+                Call<List<Recipe>> call = jsonPlaceholderAPI.getRecipes();
+
+                call.enqueue(new Callback<List<Recipe>>() {
+                    @Override
+                    public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+
+                        List<Recipe> recipes = response.body();
+
+                        String result = "";
+
+                        for(Recipe recipe : recipes) {
+
+                            result = result + recipe.toString();
+
+                        }
+
+                        //resultField.setText(result);
 
 
-                    Home.jsonArray = new JSONArray(result);
 
-                    JSONObject jsonObject = Home.jsonArray.getJSONObject(0);
 
-                    Log.e("HttpReq", jsonObject.optString("title"));
+                    }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    @Override
+                    public void onFailure(Call<List<Recipe>> call, Throwable t) {
 
-                }
+                    }
+                });
+
 
                 return null;
             }
         };
 
         asyncTask.execute();
-
-        /*String[] nameArrayParam = new String[0];
-
-        for (int i = 0; i < Home.jsonArray.length(); i++) {
-
-            try {
-                nameArrayParam[i] = Home.jsonArray.getJSONObject(i).optString("title");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-
-        // Uncomment ispod ovog, do kraja onCreate metode
-
-
-/*        try {
-            Home.nameArray = new String[] {
-                    Home.jsonArray.getJSONObject(0).optString("title"),
-                    //"Octopus",
-                    "Pig",
-                    "Sheep",
-                    "Rabbit",
-                    "Snake",
-                    "Spider"};
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        String[] infoArray = new String[0];
-
-        infoArray = new String[]{
-                //jsonArray[0].optString("title"),
-                "8 tentacled monster",
-                "Delicious in rolls",
-                "Great for jumpers",
-                "Nice in a stew",
-                "Great for shoes",
-                "Scary."
-        };
-
-        Drawable[] imageArray = {ContextCompat.getDrawable(this, R.drawable.user_icon),
-                ContextCompat.getDrawable(this, R.drawable.user_icon),
-                ContextCompat.getDrawable(this, R.drawable.user_icon),
-                ContextCompat.getDrawable(this, R.drawable.user_icon),
-                ContextCompat.getDrawable(this, R.drawable.user_icon),
-                ContextCompat.getDrawable(this, R.drawable.user_icon)
-        };
-
-        ListView listView;
-
-        RecipeAdapter whatever = new RecipeAdapter(this, nameArray, infoArray, imageArray);
-
-        listView = (ListView) findViewById(R.id.listViewID);
-        listView.setAdapter(whatever);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(Home.this, RecipeDetails.class);
-                String message = nameArray[position];
-                intent.putExtra("animal", message);
-                startActivity(intent);
-            }
-        });*/
 
     }
 

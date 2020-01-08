@@ -12,4 +12,7 @@ public interface JsonPlaceholderAPI {
     @GET("entity.user/{username}")
     Call<User> getUser(@Path("username") String username);
 
+    @GET("entity.recipe")
+    Call<List<Recipe>> getRecipes();
+
 }

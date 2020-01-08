@@ -96,6 +96,7 @@ public class Login extends AppCompatActivity {
                             "User \"" + username + "\" logged in with password \"" + user.password +"\"");
                     Intent goToHome = new Intent(getApplicationContext(), Home.class);
                     startActivity(goToHome);
+                    finish();
                 }
                 else {Log.e("Login error", "Wrong username or password!");}
             }
