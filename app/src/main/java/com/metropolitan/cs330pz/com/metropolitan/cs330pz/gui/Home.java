@@ -23,17 +23,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -85,6 +76,8 @@ public class Home extends AppCompatActivity {
         dataModels.add(new Recipe(7, "mimica", null, "Test3", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
 
         adapter = new CustomAdapter(dataModels, getApplicationContext());
+
+
 
         listView.setAdapter(adapter);
 

@@ -1,6 +1,7 @@
 package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.metropolitan.cs330pz.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -45,7 +48,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> implements View.OnClickL
         switch (v.getId())
         {
             case R.id.imageView1ID:
-                Snackbar.make(v, "Release date " +dataModel.getUsername(), Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "Release date " + dataModel.getUsername(), Snackbar.LENGTH_LONG)
                         .setAction("No action", null).show();
                 break;
         }
@@ -87,6 +90,25 @@ public class CustomAdapter extends ArrayAdapter<Recipe> implements View.OnClickL
         viewHolder.title.setText(dataModel.getTitle());
         viewHolder.synopsis.setText(dataModel.getSynopsis());
         viewHolder.image.setImageDrawable(null);
+
+        //Log.e("CustomAdapter", convertView.toString());
+
+/*        //dodato START
+
+        View v = View.inflate(mContext, R.layout.list_view, null);
+        TextView title = (TextView)v.findViewById(R.id.recipeTitle);
+        TextView synopsis = (TextView)v.findViewById(R.id.recipeSynopsis);
+        ImageView image = null;
+
+        title.setText(dataSet.get(position).getTitle());
+        synopsis.setText(dataSet.get(position).getSynopsis());
+        image.setImageDrawable(null);
+
+        convertView = v;
+        //dodato END*/
+
+
+
         // Return the completed view to render on screen
         return convertView;
     }
