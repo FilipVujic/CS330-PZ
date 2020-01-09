@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/home_title"
@@ -32,11 +35,20 @@
         android:id="@+id/home_result"
         />
 
-    <include layout="@layout/list_view"
+    <ListView
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewID"
+        android:layout_below="@+id/home_search"
+        tools:listitem="@layout/recipe_list_row_item"
+        />
+
+<!--    <include layout="@layout/list_view"
         android:id="@+id/home_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/home_search"/>
+        android:layout_below="@+id/home_search"/>-->
 
 
 

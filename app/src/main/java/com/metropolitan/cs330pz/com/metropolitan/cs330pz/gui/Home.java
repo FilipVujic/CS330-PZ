@@ -92,11 +92,13 @@ public class Home extends AppCompatActivity {
             }
         });
 
+
+
         AsyncTask asyncTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
 
-                String url = MainActivity.url.toString();
+                String url = getResources().getString(R.string.url);
                 //+ "/webresources/entity.user"
                 //+ "/" + username;
 
@@ -126,7 +128,7 @@ public class Home extends AppCompatActivity {
                         //resultField.setText(result);
 
 
-
+                        updateList(recipes);
 
                     }
 
@@ -145,7 +147,16 @@ public class Home extends AppCompatActivity {
 
     }
 
-    public static Drawable LoadImageFromWebOperations(String url) {
+
+
+    private void updateList(List<Recipe> recipes) {
+
+        dataModels.clear();
+        dataModels.addAll(recipes);
+        adapter.notifyDataSetChanged();
+    }
+
+    public static Drawable loadImageFromWebOperations(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
             Drawable d = Drawable.createFromStream(is, "src name");

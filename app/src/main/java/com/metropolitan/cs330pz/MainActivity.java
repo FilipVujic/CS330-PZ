@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui.Home;
 import com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui.Login;
 
 import java.net.MalformedURLException;
@@ -12,7 +13,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static URL url;
+/*    public static URL url;
 
     static {
         try {
@@ -20,26 +21,21 @@ public class MainActivity extends AppCompatActivity {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
 
-        Intent setInitialView = new Intent(getApplicationContext(), Login.class);
+        /*Intent setInitialView = new Intent(getApplicationContext(), Login.class);
         startActivity(setInitialView);
+        finish();*/
 
-        String[] nameArray = {"Octopus","Pig","Sheep","Rabbit","Snake","Spider" };
+        Intent setInitialView = new Intent(this, Home.class);
+        startActivity(setInitialView);
+        finish();
 
-        String[] infoArray = {
-                "8 tentacled monster",
-                "Delicious in rolls",
-                "Great for jumpers",
-                "Nice in a stew",
-                "Great for shoes",
-                "Scary."
-        };
 
 
 
