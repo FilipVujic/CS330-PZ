@@ -71,13 +71,11 @@ public class Home extends AppCompatActivity {
 
         dataModels = new ArrayList<>();
 
-        dataModels.add(new Recipe(5, "mimica", null, "Test1", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
+        /*dataModels.add(new Recipe(5, "mimica", null, "Test1", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
         dataModels.add(new Recipe(6, "mimica", null, "Test2", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
         dataModels.add(new Recipe(7, "mimica", null, "Test3", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
-
+*/
         adapter = new CustomAdapter(dataModels, getApplicationContext());
-
-
 
         listView.setAdapter(adapter);
 
@@ -85,7 +83,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Recipe dataModel= dataModels.get(position);
+                Recipe dataModel = dataModels.get(position);
 
                 Snackbar.make(view, dataModel.getTitle()+ "\n" + dataModel.getSynopsis(), Snackbar.LENGTH_LONG)
                         .setAction("No action", null).show();
@@ -111,7 +109,6 @@ public class Home extends AppCompatActivity {
                 List<Recipe> recipes = response.body();
 
                 updateList(recipes);
-
             }
 
             @Override

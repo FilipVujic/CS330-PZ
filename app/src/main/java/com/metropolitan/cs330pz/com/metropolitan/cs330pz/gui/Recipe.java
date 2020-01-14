@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.annotations.SerializedName;
 import com.metropolitan.cs330pz.R;
 
 public class Recipe {
@@ -24,6 +25,7 @@ public class Recipe {
 
     public int id;
     public String username;
+    @SerializedName("imageUrl")
     public String image_url;
     public String title;
     public String synopsis;

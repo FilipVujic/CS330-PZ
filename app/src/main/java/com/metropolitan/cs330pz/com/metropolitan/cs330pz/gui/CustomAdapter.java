@@ -75,7 +75,6 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
                 .error(R.mipmap.ic_launcher_round);
 
 
-
         Glide.with(getContext()).load(dataModel.getImage_url()).apply(options).into(viewHolder.image);
 
 
