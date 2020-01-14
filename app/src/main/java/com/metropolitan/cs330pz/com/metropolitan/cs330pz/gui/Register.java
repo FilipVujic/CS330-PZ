@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Register extends AppCompatActivity {
 
     @Override
@@ -53,15 +59,15 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String username = usernameField.getText().toString();
-                String email = emailField.getText().toString();
-                String passwd = encryptPasswd(username, passwdField.getText().toString());
 
-                try {
-                    postUser(username, email, passwd);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                User user = new User(
+                        usernameField.getText().toString(),
+                        emailField.getText().toString(),
+                        encryptPasswd(usernameField.getText().toString(),
+                                passwdField.getText().toString())
+                );
+
+                postUser(user);
             }
         });
     }
@@ -70,112 +76,38 @@ public class Register extends AppCompatActivity {
 
         Intent goToLogin = new Intent(getApplicationContext(), Login.class);
         startActivity(goToLogin);
+        finish();
     }
 
-    public void postUser(final String username, final String email, final String passwd) throws IOException {
+    public void postUser(User user) {
 
-        //DON'T DELETE
-/*                try {
-                    JSONObject jsonUser = new JSONObject();
+        String url = getResources().getString(R.string.url);
 
-                    URL obj = new URL("http://192.168.0.12:8080/CS330_PZ_RestServices/webresources/entity.users/");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
 
-                    HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
-                    postConnection.setRequestMethod("POST");
-                    //postConnection.setRequestProperty("userId", "a1bcdefgh");
-                    postConnection.setRequestProperty("Accept", "application/json");
-                    postConnection.setRequestProperty("Content-Type", "application/json");
-                    postConnection.setDoOutput(true);
+        Call<User> call = jsonPlaceholderAPI.createUser(user);
 
-                    int responseCode = postConnection.getResponseCode();
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
 
+                Toast.makeText(getBaseContext(), "User successfuly created! Redirecting to login screen.", Toast.LENGTH_SHORT).show();
 
-                    jsonUser.put("username", username);
-                    jsonUser.put("email", email);
-                    jsonUser.put("password", passwd);
+                Intent goToHome = new Intent(getApplicationContext(), Home.class);
+                startActivity(goToHome);
+                finish();
+            }
 
-                    Toast.makeText(getApplicationContext(), jsonUser.toString(), Toast.LENGTH_LONG).show();
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
 
-
-                    OutputStream os = postConnection.getOutputStream();
-                    os.write(jsonUser.toString().getBytes());
-                    Log.e("POST REPORT", jsonUser.toString());
-                    os.flush();
-                    os.close();
-
-                    System.out.println("POST Response Code :  " + responseCode);
-                    System.out.println("POST Response Message : " + postConnection.getResponseMessage());
-
-                    if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
-                        BufferedReader in = new BufferedReader(new InputStreamReader(
-                                postConnection.getInputStream()));
-                        String inputLine;
-                        StringBuffer response = new StringBuffer();
-
-                        while ((inputLine = in.readLine()) != null) {
-                            response.append(inputLine);
-                        }
-                        in.close();
-                        // print result
-                        System.out.println(response.toString());
-
-                    } else {
-                        System.out.println("POST NOT WORKED");
-                    }
-                } catch (ProtocolException e) {
-                    e.printStackTrace();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
-
-
-        try {
-
-
-
-            JSONObject jsonUser = new JSONObject();
-            jsonUser.put("username", username);
-            jsonUser.put("email", email);
-            jsonUser.put("password", passwd);
-
-            URL url = new URL(MainActivity.url + "/webresources/entity.user/");
-
-
-            JsonObjectRequest jsonUserReq = new JsonObjectRequest(Request.Method.POST, url.toString(), jsonUser,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Toast.makeText(getApplicationContext(), "Response:  " + response.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    onBackPressed();
-                }
-            }) {
-                @Override
-                public Map<String, String> getParams() {
-                    final Map<String, String> params = new HashMap<>();
-                    params.put("username", username);
-                    params.put("email", email);
-                    params.put("password", passwd);
-                    return params;
-                }
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-            requestQueue.add(jsonUserReq);
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            }
+        });
 
     }
 

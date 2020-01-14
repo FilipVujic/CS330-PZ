@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(setInitialView);
         finish();*/
 
-        Intent setInitialView = new Intent(this, Home.class);
+        Intent setInitialView = new Intent(this, Login.class);
         startActivity(setInitialView);
         finish();
 

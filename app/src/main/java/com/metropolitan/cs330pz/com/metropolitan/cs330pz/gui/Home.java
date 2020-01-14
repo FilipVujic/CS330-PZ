@@ -93,57 +93,32 @@ public class Home extends AppCompatActivity {
         });
 
 
+        String url = getResources().getString(R.string.url);
 
-        AsyncTask asyncTask = new AsyncTask() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
+
+        Call<List<Recipe>> call = jsonPlaceholderAPI.getRecipes();
+
+        call.enqueue(new Callback<List<Recipe>>() {
             @Override
-            protected Object doInBackground(Object[] objects) {
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
 
-                String url = getResources().getString(R.string.url);
-                //+ "/webresources/entity.user"
-                //+ "/" + username;
+                List<Recipe> recipes = response.body();
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(url)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                updateList(recipes);
 
-                JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
-
-                Call<List<Recipe>> call = jsonPlaceholderAPI.getRecipes();
-
-                call.enqueue(new Callback<List<Recipe>>() {
-                    @Override
-                    public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-
-                        List<Recipe> recipes = response.body();
-
-                        String result = "";
-
-                        for(Recipe recipe : recipes) {
-
-                            result = result + recipe.toString();
-
-                        }
-
-                        //resultField.setText(result);
-
-
-                        updateList(recipes);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Recipe>> call, Throwable t) {
-
-                    }
-                });
-
-
-                return null;
             }
-        };
 
-        asyncTask.execute();
+            @Override
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -156,15 +131,6 @@ public class Home extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    public static Drawable loadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View view,

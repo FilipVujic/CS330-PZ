@@ -7,23 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.metropolitan.cs330pz.MainActivity;
+
 import com.metropolitan.cs330pz.R;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,27 +38,25 @@ public class Login extends AppCompatActivity {
 
                 String username = usernameField.getText().toString();
                 String passwd = encryptPasswd(username, passwdField.getText().toString());
-                String storedUsername;
-                String storedPasswd;
 
                 checkCredentials(username, passwd);
 
             }
         });
+
     }
 
     public void goToReg(View view) {
 
         Intent goToRegister = new Intent(getApplicationContext(), Register.class);
         startActivity(goToRegister);
+        finish();
     }
 
 
     public void checkCredentials(final String username, final String passwd) {
 
-        String url = MainActivity.url.toString();
-                //+ "/webresources/entity.user"
-                //+ "/" + username;
+        String url = getResources().getString(R.string.url);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -107,59 +94,13 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        /*RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-
-                            String storedPasswd = response.getString("password");
-
-                            *//*Log.e("Json passwd", storedPasswd);
-                            Log.e("Encrypted passwd", passwd);*//*
-
-                            if(storedPasswd.equals(passwd)) {
-                                Log.e("Login ",
-                                        "User \"" + username + "\" logged in with password \"" + storedPasswd +"\"");
-                                Intent goToHome = new Intent(getApplicationContext(), Home.class);
-                                startActivity(goToHome);
-                            }
-                            else {Log.e("Login error", "Wrong username or password!");}
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        //Log.e("Rest Response", response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        Log.e("Volley error", error.toString());
-                    }
-                }
-
-        );
-
-        requestQueue.add(objectRequest);*/
-
-
     }
 
 
 
     public String encryptPasswd(String username, String passwd) {
 
-        String passwdEncrypted = null;
+        String passwdEncrypted;
 
         byte[] pwBytes = DigestUtils.sha1(username + passwd);
         passwdEncrypted = Base64.encodeToString(pwBytes, Base64.NO_WRAP);
