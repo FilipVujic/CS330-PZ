@@ -1,51 +1,31 @@
 package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.metropolitan.cs330pz.MainActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.metropolitan.cs330pz.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -85,8 +65,44 @@ public class Home extends AppCompatActivity {
 
                 Recipe dataModel = dataModels.get(position);
 
-                Snackbar.make(view, dataModel.getTitle()+ "\n" + dataModel.getSynopsis(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
+                /*Snackbar.make(view, dataModel.getRecipeTitle()+ "\n" + dataModel.getSynopsis(), Snackbar.LENGTH_LONG)
+                        .setAction("No action", null).show();*/
+
+                View viewRecipe;
+                LayoutInflater scrollLayout = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                viewRecipe = scrollLayout.inflate(R.layout.recipe_layout, null);
+
+                setContentView(R.layout.recipe_layout);
+
+                ImageView image = viewRecipe.findViewById(R.id.recipe_layout_coverPhoto);
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .placeholder(R.mipmap.ic_launcher_round)
+                        .error(R.mipmap.ic_launcher_round);
+                Glide.with(getBaseContext()).load(dataModel.getImage_url()).apply(options).into(image);
+
+                TextView title = viewRecipe.findViewById(R.id.recipe_layout_title);
+                title.setText(dataModel.getRecipeTitle());
+
+                TextView synopsis = viewRecipe.findViewById(R.id.recipe_layout_synopsis);
+                synopsis.setText(dataModel.getSynopsis());
+
+                TextView description = viewRecipe.findViewById(R.id.recipe_layout_description);
+                description.setText(dataModel.getDescription());
+
+                TextView ingredients = viewRecipe.findViewById(R.id.recipe_layout_ingredients);
+                ingredients.setText(dataModel.getIngredients());
+
+                TextView preparation = viewRecipe.findViewById(R.id.recipe_layout_preparation);
+                preparation.setText(dataModel.getPreparation());
+
+
+                /*Intent goToRecipe = new Intent(getApplicationContext(), Recipe.class);
+                startActivity(goToRecipe);*/
+
+
+                setContentView(viewRecipe);
+
             }
         });
 

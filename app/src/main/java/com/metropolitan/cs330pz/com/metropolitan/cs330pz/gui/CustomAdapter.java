@@ -1,9 +1,6 @@
 package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +9,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.RequiresApi;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -78,7 +73,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
         Glide.with(getContext()).load(dataModel.getImage_url()).apply(options).into(viewHolder.image);
 
 
-        viewHolder.title.setText(dataModel.getTitle());
+        viewHolder.title.setText(dataModel.getRecipeTitle());
         viewHolder.synopsis.setText(dataModel.getSynopsis());
 
 

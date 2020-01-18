@@ -14,14 +14,14 @@ import androidx.fragment.app.Fragment;
 import com.google.gson.annotations.SerializedName;
 import com.metropolitan.cs330pz.R;
 
-public class Recipe {
+public class Recipe extends AppCompatActivity {
 
-/*    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.recipeList_row_item, container, false);
-    }*/
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     public int id;
     public String username;
@@ -82,7 +82,7 @@ public class Recipe {
         this.image_url = image_url;
     }
 
-    public String getTitle() {
+    public String getRecipeTitle() {
         return title;
     }
 
