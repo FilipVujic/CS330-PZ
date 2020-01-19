@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,6 @@ public class Home extends AppCompatActivity {
     ArrayList<Recipe> dataModels;
     private static CustomAdapter adapter;
 
-    //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +51,6 @@ public class Home extends AppCompatActivity {
 
         dataModels = new ArrayList<>();
 
-        /*dataModels.add(new Recipe(5, "mimica", null, "Test1", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
-        dataModels.add(new Recipe(6, "mimica", null, "Test2", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
-        dataModels.add(new Recipe(7, "mimica", null, "Test3", "Opis neki", "Opis dugacki", "Jaje", "Skuvati jaje"));
-*/
         adapter = new CustomAdapter(dataModels, getApplicationContext());
 
         listView.setAdapter(adapter);
@@ -65,14 +61,12 @@ public class Home extends AppCompatActivity {
 
                 Recipe dataModel = dataModels.get(position);
 
-                /*Snackbar.make(view, dataModel.getRecipeTitle()+ "\n" + dataModel.getSynopsis(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();*/
-
-                View viewRecipe;
-                LayoutInflater scrollLayout = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                /*View viewRecipe;
+                //LinearLayout myRoot = new LinearLayout(RecipeActivity);
+                LayoutInflater scrollLayout = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 viewRecipe = scrollLayout.inflate(R.layout.recipe_layout, null);
 
-                setContentView(R.layout.recipe_layout);
+                //setContentView(R.layout.recipe_layout);
 
                 ImageView image = viewRecipe.findViewById(R.id.recipe_layout_coverPhoto);
                 RequestOptions options = new RequestOptions()
@@ -94,14 +88,16 @@ public class Home extends AppCompatActivity {
                 ingredients.setText(dataModel.getIngredients());
 
                 TextView preparation = viewRecipe.findViewById(R.id.recipe_layout_preparation);
-                preparation.setText(dataModel.getPreparation());
+                preparation.setText(dataModel.getPreparation());*/
 
 
-                /*Intent goToRecipe = new Intent(getApplicationContext(), Recipe.class);
-                startActivity(goToRecipe);*/
+                Intent goToRecipe = new Intent(getApplicationContext(), RecipeActivity.class);
+                goToRecipe.putExtra("RecipeObj", dataModel);
+                startActivity(goToRecipe);
 
 
-                setContentView(viewRecipe);
+
+                //setContentView(viewRecipe);
 
             }
         });

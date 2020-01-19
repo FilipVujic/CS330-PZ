@@ -14,14 +14,16 @@ import androidx.fragment.app.Fragment;
 import com.google.gson.annotations.SerializedName;
 import com.metropolitan.cs330pz.R;
 
-public class Recipe extends AppCompatActivity {
+import java.io.Serializable;
+
+public class Recipe implements Serializable {
 
 
-    @Override
+/*    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
+    }*/
 
     public int id;
     public String username;
