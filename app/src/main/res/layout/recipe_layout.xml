@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:id="@+id/recipe_layout_ID">
-    >
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="50dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     >
 
     <ImageView
@@ -28,6 +30,7 @@
         android:textAlignment="center"
         android:layout_gravity="center"
         android:id="@+id/recipe_layout_title"
+        android:textStyle="bold"
         android:textSize="30dp"
         android:textColor="#181a19"
         android:layout_marginTop="20dp"
@@ -130,6 +133,15 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recipe_layout_saveRecipeBtn"
+        android:text="Save recipe"
+        android:layout_gravity="center"
+        android:onClick="saveRecipe"
         />
 
 </LinearLayout>

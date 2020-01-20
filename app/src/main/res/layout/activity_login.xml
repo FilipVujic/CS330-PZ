@@ -13,24 +13,24 @@
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="30dp"
-        android:id="@+id/login_title"
         />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
         android:layout_marginBottom="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
         android:hint="Username"
         android:id="@+id/login_username" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
         android:hint="Password"
         android:id="@+id/login_passwd" />
 

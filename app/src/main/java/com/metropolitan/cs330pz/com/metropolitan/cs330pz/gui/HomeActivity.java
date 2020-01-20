@@ -1,31 +1,23 @@
 package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.metropolitan.cs330pz.R;
+import com.metropolitan.cs330pz.entity.Recipe;
+import com.metropolitan.cs330pz.util.CustomAdapter;
+import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +27,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     ArrayList<Recipe> dataModels;
     private static CustomAdapter adapter;
@@ -61,43 +53,10 @@ public class Home extends AppCompatActivity {
 
                 Recipe dataModel = dataModels.get(position);
 
-                /*View viewRecipe;
-                //LinearLayout myRoot = new LinearLayout(RecipeActivity);
-                LayoutInflater scrollLayout = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                viewRecipe = scrollLayout.inflate(R.layout.recipe_layout, null);
-
-                //setContentView(R.layout.recipe_layout);
-
-                ImageView image = viewRecipe.findViewById(R.id.recipe_layout_coverPhoto);
-                RequestOptions options = new RequestOptions()
-                        .centerCrop()
-                        .placeholder(R.mipmap.ic_launcher_round)
-                        .error(R.mipmap.ic_launcher_round);
-                Glide.with(getBaseContext()).load(dataModel.getImage_url()).apply(options).into(image);
-
-                TextView title = viewRecipe.findViewById(R.id.recipe_layout_title);
-                title.setText(dataModel.getRecipeTitle());
-
-                TextView synopsis = viewRecipe.findViewById(R.id.recipe_layout_synopsis);
-                synopsis.setText(dataModel.getSynopsis());
-
-                TextView description = viewRecipe.findViewById(R.id.recipe_layout_description);
-                description.setText(dataModel.getDescription());
-
-                TextView ingredients = viewRecipe.findViewById(R.id.recipe_layout_ingredients);
-                ingredients.setText(dataModel.getIngredients());
-
-                TextView preparation = viewRecipe.findViewById(R.id.recipe_layout_preparation);
-                preparation.setText(dataModel.getPreparation());*/
-
-
                 Intent goToRecipe = new Intent(getApplicationContext(), RecipeActivity.class);
                 goToRecipe.putExtra("RecipeObj", dataModel);
                 startActivity(goToRecipe);
 
-
-
-                //setContentView(viewRecipe);
 
             }
         });
@@ -130,7 +89,6 @@ public class Home extends AppCompatActivity {
         });
 
     }
-
 
 
     private void updateList(List<Recipe> recipes) {
@@ -166,21 +124,21 @@ public class Home extends AppCompatActivity {
 
     private void CreateMenu(Menu menu) {
         menu.setQwertyMode(true);
-        MenuItem mnu1 = menu.add(0, 0, 0, "Item1");
+        MenuItem mnu1 = menu.add(0, 0, 0, "Profile");
         {
 
-            mnu1.setAlphabeticShortcut('a');
-            mnu1.setIcon(R.mipmap.ic_launcher);
+/*            mnu1.setAlphabeticShortcut('a');
+            mnu1.setIcon(R.mipmap.ic_launcher_round);*/
         }
-        MenuItem mnu2 = menu.add(0, 1, 1, "Item2");
+        MenuItem mnu2 = menu.add(0, 1, 1, "Saved Recipes");
         {
-            mnu2.setAlphabeticShortcut('b');
-            mnu2.setIcon(R.mipmap.ic_launcher);
+/*            mnu2.setAlphabeticShortcut('b');
+            mnu2.setIcon(R.mipmap.ic_launcher_round);*/
         }
         MenuItem mnu3 = menu.add(0, 2, 2, "Item3");
         {
-            mnu3.setAlphabeticShortcut('c');
-            mnu3.setIcon(R.mipmap.ic_launcher);
+/*            mnu3.setAlphabeticShortcut('c');
+            mnu3.setIcon(R.mipmap.ic_launcher_round);*/
         }
 
 
@@ -189,11 +147,15 @@ public class Home extends AppCompatActivity {
 
     private boolean MenuChoice(MenuItem item) {
         switch (item.getItemId()) {
+
             case 0:
-                Toast.makeText(getApplicationContext(), "It works!", Toast.LENGTH_LONG).show();
+                Intent goToProfile = new Intent(getBaseContext(), ProfileActivity.class);
+                startActivity(goToProfile);
                 return true;
+
             case 1:
                 return true;
+
             case 2:
                 return true;
         }
@@ -201,21 +163,4 @@ public class Home extends AppCompatActivity {
     }
 
 
-    private static String inputStreamToString(InputStream is) {
-        String rLine = "";
-        StringBuilder answer = new StringBuilder();
-
-        InputStreamReader isr = new InputStreamReader(is);
-
-        BufferedReader rd = new BufferedReader(isr);
-
-        try {
-            while ((rLine = rd.readLine()) != null) {
-                answer.append(rLine);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return answer.toString();
-    }
 }

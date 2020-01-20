@@ -1,4 +1,7 @@
-package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
+package com.metropolitan.cs330pz.util;
+
+import com.metropolitan.cs330pz.entity.Recipe;
+import com.metropolitan.cs330pz.entity.User;
 
 import java.util.List;
 

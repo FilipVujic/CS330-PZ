@@ -1,18 +1,6 @@
-package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
-
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+package com.metropolitan.cs330pz.entity;
 
 import com.google.gson.annotations.SerializedName;
-import com.metropolitan.cs330pz.R;
 
 import java.io.Serializable;
 

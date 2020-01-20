@@ -1,4 +1,4 @@
-package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
+package com.metropolitan.cs330pz.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.metropolitan.cs330pz.R;
+import com.metropolitan.cs330pz.entity.Recipe;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
     }
 
     public CustomAdapter(ArrayList<Recipe> recipes, Context context) {
-        super(context, R.layout.recipe_list_row_item, recipes);
+        super(context, R.layout.recipe_list_item_layout, recipes);
         //this.mContext = context;
     }
 
@@ -49,7 +50,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.recipe_list_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.recipe_list_item_layout, parent, false);
             viewHolder.title = (TextView) convertView.findViewById(R.id.recipeTitle);
             viewHolder.synopsis = (TextView) convertView.findViewById(R.id.recipeSynopsis);
             viewHolder.image = (ImageView) convertView.findViewById(R.id.imageView1ID);

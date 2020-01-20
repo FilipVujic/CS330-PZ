@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/listViewID"
         android:layout_below="@+id/home_search"
-        tools:listitem="@layout/recipe_list_row_item"
+        tools:listitem="@layout/recipe_list_item_layout"
         />
 
 <!--    <include layout="@layout/list_view"

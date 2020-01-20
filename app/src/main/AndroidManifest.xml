@@ -18,10 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".com.metropolitan.cs330pz.gui.Login"/>
-        <activity android:name=".com.metropolitan.cs330pz.gui.Register"/>
-        <activity android:name=".com.metropolitan.cs330pz.gui.Home"/>
+        <activity android:name=".com.metropolitan.cs330pz.gui.LoginActivity"/>
+        <activity android:name=".com.metropolitan.cs330pz.gui.RegisterActivity"/>
+        <activity android:name=".com.metropolitan.cs330pz.gui.HomeActivity"/>
         <activity android:name=".com.metropolitan.cs330pz.gui.RecipeActivity"/>
+        <activity android:name=".com.metropolitan.cs330pz.gui.ProfileActivity"/>
 
 
     </application>

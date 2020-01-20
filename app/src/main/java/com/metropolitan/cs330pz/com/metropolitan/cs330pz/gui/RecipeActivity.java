@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.metropolitan.cs330pz.R;
+import com.metropolitan.cs330pz.entity.Recipe;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -54,6 +57,13 @@ public class RecipeActivity extends AppCompatActivity {
         TextView preparation = viewRecipe.findViewById(R.id.recipe_layout_preparation);
         preparation.setText(recipe.getPreparation());
 
+
+
         setContentView(viewRecipe);
+    }
+
+    public void saveRecipe(View view) {
+
+        Toast.makeText(getBaseContext(), "Recipe saved to local database.", Toast.LENGTH_SHORT).show();
     }
 }

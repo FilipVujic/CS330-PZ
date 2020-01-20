@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
-import android.util.Log;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,36 +13,19 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import com.android.volley.toolbox.Volley;
-import com.metropolitan.cs330pz.MainActivity;
 import com.metropolitan.cs330pz.R;
+import com.metropolitan.cs330pz.entity.User;
+import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
 import android.util.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import java.net.MalformedURLException;
-
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,12 +57,12 @@ public class Register extends AppCompatActivity {
 
     public void goToLogin(View view) {
 
-        Intent goToLogin = new Intent(getApplicationContext(), Login.class);
+        Intent goToLogin = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(goToLogin);
         finish();
     }
 
-    public void postUser(User user) {
+    public void postUser(final User user) {
 
         String url = getResources().getString(R.string.url);
 
@@ -96,11 +79,19 @@ public class Register extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, retrofit2.Response<User> response) {
 
-                Toast.makeText(getBaseContext(), "User successfuly created! Redirecting to login screen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "User successfuly created! Redirecting to home screen.", Toast.LENGTH_SHORT).show();
+                SystemClock.sleep(500);
 
-                Intent goToHome = new Intent(getApplicationContext(), Home.class);
+                LoginActivity.logInUser(
+                        user.getUsername(),
+                        user.getEmail(),
+                        user.getPassword()
+                );
+
+                Intent goToHome = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(goToHome);
                 finish();
+
             }
 
             @Override
