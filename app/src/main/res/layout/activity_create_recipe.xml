@@ -1,41 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="50dp"
+    >
 
     <TextView
-
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create recipe"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="#181a19"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
         />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_gravity="center"
+        android:text="Title"
+        android:textSize="17dp"
+        android:textColor="#181a19"
+        />
 
     <EditText
         android:id="@+id/create_recipe_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
     />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_gravity="center"
+        android:text="Synopsis"
+        android:textSize="17dp"
+        android:textColor="#181a19"
+        />
 
     <EditText
         android:id="@+id/create_recipe_synopsis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_gravity="center"
+        android:text="Description"
+        android:textSize="17dp"
+        android:textColor="#181a19"
+        />
 
 
     <EditText
@@ -44,12 +76,18 @@
         android:layout_height="150dp"
         android:inputType="text|textMultiLine"
         android:gravity="top"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
         />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingredients" />
+        android:text="Ingredients"
+        android:layout_gravity="center"
+        android:textSize="17dp"
+        android:textColor="#181a19"
+        />
 
     <EditText
         android:id="@+id/create_recipe_ingredients"
@@ -57,12 +95,18 @@
         android:layout_height="150dp"
         android:inputType="text|textMultiLine"
         android:gravity="top"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
         />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Preparation" />
+        android:text="Preparation"
+        android:layout_gravity="center"
+        android:textSize="17dp"
+        android:textColor="#181a19"
+        />
 
     <EditText
         android:id="@+id/create_recipe_preparation"
@@ -70,25 +114,35 @@
         android:layout_height="150dp"
         android:inputType="text|textMultiLine"
         android:gravity="top"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
         />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Image url"
+        android:layout_gravity="center"
+        android:textSize="17dp"
+        android:textColor="#181a19"
         />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/create_recipe_image_url"
+        android:layout_gravity="center"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/create_recipe_button"
+        android:text="Create recipe"
+        android:layout_gravity="center"
         />
 
 
 </LinearLayout>
+
+</ScrollView>

@@ -2,17 +2,16 @@ package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.metropolitan.cs330pz.MainActivity;
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
 import com.metropolitan.cs330pz.util.CustomAdapter;
@@ -27,14 +26,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeActivity extends AppCompatActivity {
+public class MyRecipesActivity extends AppCompatActivity {
 
     ArrayList<Recipe> dataModels;
     private static CustomAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
 
         final EditText searchField = (EditText) findViewById(R.id.home_search);
@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
 
         JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
 
-        Call<List<Recipe>> call = jsonPlaceholderAPI.getRecipes();
+        Call<List<Recipe>> call = jsonPlaceholderAPI.getUsersRecipes(MainActivity.sharedPreferences.getString("username", ""));
 
         call.enqueue(new Callback<List<Recipe>>() {
             @Override
@@ -87,9 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
 
     private void updateList(List<Recipe> recipes) {
 
@@ -97,79 +95,4 @@ public class HomeActivity extends AppCompatActivity {
         dataModels.addAll(recipes);
         adapter.notifyDataSetChanged();
     }
-
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View view,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, view, menuInfo);
-        CreateMenu(menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        return MenuChoice(item);
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        CreateMenu(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return MenuChoice(item);
-    }
-
-    private void CreateMenu(Menu menu) {
-        menu.setQwertyMode(true);
-        MenuItem mnu1 = menu.add(0, 0, 0, "Profile");
-        {
-
-/*            mnu1.setAlphabeticShortcut('a');
-            mnu1.setIcon(R.mipmap.ic_launcher_round);*/
-        }
-        MenuItem mnu2 = menu.add(0, 1, 1, "Saved Recipes");
-        {
-/*            mnu2.setAlphabeticShortcut('b');
-            mnu2.setIcon(R.mipmap.ic_launcher_round);*/
-        }
-        MenuItem mnu3 = menu.add(0, 2, 2, "My recipes");
-        {
-/*            mnu3.setAlphabeticShortcut('c');
-            mnu3.setIcon(R.mipmap.ic_launcher_round);*/
-        }
-
-
-    }
-
-
-    private boolean MenuChoice(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case 0:
-                Intent goToProfile = new Intent(getBaseContext(), ProfileActivity.class);
-                startActivity(goToProfile);
-                return true;
-
-            case 1:
-                return true;
-
-            case 2:
-                Intent goToMyRecipes = new Intent(getBaseContext(), MyRecipesActivity.class);
-                startActivity(goToMyRecipes);
-                return true;
-        }
-        return false;
-    }
-
-
-    public void goToCreateRecipe(View view) {
-
-        Intent goToCreateRecipe = new Intent(getBaseContext(), CreateRecipeActivity.class);
-        startActivity(goToCreateRecipe);
-    }
-
-
 }

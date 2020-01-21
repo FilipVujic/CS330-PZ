@@ -24,6 +24,7 @@
         <activity android:name=".com.metropolitan.cs330pz.gui.RecipeActivity"/>
         <activity android:name=".com.metropolitan.cs330pz.gui.ProfileActivity"/>
         <activity android:name=".com.metropolitan.cs330pz.gui.CreateRecipeActivity"/>
+        <activity android:name=".com.metropolitan.cs330pz.gui.MyRecipesActivity"/>
 
 
     </application>
