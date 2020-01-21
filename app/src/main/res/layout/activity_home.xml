@@ -5,17 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/home_title"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Njam"
-        android:layout_marginBottom="10dp"
-        android:textAlignment="center"
+        android:id="@+id/home_header"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:textSize="30dp"
+        android:paddingTop="5dp"
+        >
 
-        />
+        <TextView
+            android:id="@+id/home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Njam"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:adjustViewBounds="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/plus_icon"
+            android:onClick="goToCreateRecipe"
+            />
+
+    </FrameLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/home_header"
+        android:id="@+id/home_search_linLayout"
+        >
 
     <EditText
         android:layout_width="match_parent"
@@ -27,7 +59,10 @@
         android:textAlignment="center"
         android:gravity="center"
         android:id="@+id/home_search"
-        android:layout_below="@id/home_title"/>
+        />
+
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -40,7 +75,7 @@
         android:padding="5dp"
         android:layout_height="wrap_content"
         android:id="@+id/listViewID"
-        android:layout_below="@+id/home_search"
+        android:layout_below="@+id/home_search_linLayout"
         tools:listitem="@layout/recipe_list_item_layout"
         />
 

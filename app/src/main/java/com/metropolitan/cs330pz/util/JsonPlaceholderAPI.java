@@ -20,8 +20,11 @@ public interface JsonPlaceholderAPI {
     @POST("entity.user/")
     Call<User> createUser(@Body User user);
 
-    @GET("entity.recipe")
+    @GET("entity.recipe/")
     Call<List<Recipe>> getRecipes();
+
+    @POST("entity.recipe/")
+    Call<Recipe> createRecipe(@Body Recipe recipe);
 
 
 }

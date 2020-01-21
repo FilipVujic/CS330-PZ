@@ -45,6 +45,9 @@ public class RecipeActivity extends AppCompatActivity {
         TextView title = viewRecipe.findViewById(R.id.recipe_layout_title);
         title.setText(recipe.getRecipeTitle());
 
+        TextView username = viewRecipe.findViewById(R.id.recipe_layout_username);
+        username.setText("by " + recipe.getUsername());
+
         TextView synopsis = viewRecipe.findViewById(R.id.recipe_layout_synopsis);
         synopsis.setText(recipe.getSynopsis());
 

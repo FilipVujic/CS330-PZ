@@ -23,6 +23,7 @@
         <activity android:name=".com.metropolitan.cs330pz.gui.HomeActivity"/>
         <activity android:name=".com.metropolitan.cs330pz.gui.RecipeActivity"/>
         <activity android:name=".com.metropolitan.cs330pz.gui.ProfileActivity"/>
+        <activity android:name=".com.metropolitan.cs330pz.gui.CreateRecipeActivity"/>
 
 
     </application>

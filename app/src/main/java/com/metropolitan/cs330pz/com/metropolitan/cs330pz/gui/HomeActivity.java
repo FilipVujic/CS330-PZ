@@ -163,4 +163,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    public void goToCreateRecipe(View view) {
+
+        Intent goToCreateRecipe = new Intent(getBaseContext(), CreateRecipeActivity.class);
+        startActivity(goToCreateRecipe);
+    }
+
+
 }

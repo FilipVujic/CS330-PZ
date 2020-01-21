@@ -34,6 +34,17 @@ public class Recipe implements Serializable {
         this.preparation = preparation;
     }
 
+    public Recipe(String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url) {
+        this.username = username;
+        this.title = title;
+        this.synopsis = synopsis;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.preparation = preparation;
+        this.image_url = image_url;
+    }
+
+
     @Override
     public String toString() {
         return "Recipe{" +
