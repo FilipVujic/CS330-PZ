@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
 
         dataModels = new ArrayList<>();
 
-        adapter = new CustomAdapter(dataModels, getApplicationContext());
+        adapter = new CustomAdapter(dataModels, getBaseContext());
 
         listView.setAdapter(adapter);
 
@@ -53,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 Recipe dataModel = dataModels.get(position);
 
-                Intent goToRecipe = new Intent(getApplicationContext(), RecipeActivity.class);
+                Intent goToRecipe = new Intent(getBaseContext(), RecipeActivity.class);
                 goToRecipe.putExtra("RecipeObj", dataModel);
                 startActivity(goToRecipe);
 

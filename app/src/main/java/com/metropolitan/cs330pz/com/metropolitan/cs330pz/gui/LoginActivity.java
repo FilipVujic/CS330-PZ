@@ -32,9 +32,9 @@ public class LoginActivity extends AppCompatActivity {
 
         if(MainActivity.sharedPreferences.getBoolean("user_logged-in", false)) {
 
-            Log.e("Login", String.valueOf("User logged in: " + MainActivity.sharedPreferences.getBoolean("user_logged-in", false)));
+            Log.e("Login", "User logged in: " + MainActivity.sharedPreferences.getBoolean("user_logged-in", false));
 
-            Intent goToHome = new Intent(getApplicationContext(), HomeActivity.class);
+            Intent goToHome = new Intent(getBaseContext(), HomeActivity.class);
             startActivity(goToHome);
             finish();
         }
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void goToReg(View view) {
 
-        Intent goToRegister = new Intent(getApplicationContext(), RegisterActivity.class);
+        Intent goToRegister = new Intent(getBaseContext(), RegisterActivity.class);
         startActivity(goToRegister);
         finish();
     }
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     logInUser(user.getUsername(), user.getEmail(), user.getPassword());
 
-                    Intent goToHome = new Intent(getApplicationContext(), HomeActivity.class);
+                    Intent goToHome = new Intent(getBaseContext(), HomeActivity.class);
                     startActivity(goToHome);
                     finish();
 
@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
         MainActivity.prefsEditor.putString("passwd", password);
         MainActivity.prefsEditor.commit();
 
-        Log.e("Login", String.valueOf(MainActivity.sharedPreferences.getBoolean("user_logged-in", false)));
+        Log.e("Login", String.valueOf("User logged in:" + MainActivity.sharedPreferences.getBoolean("user_logged-in", false)));
 
 
     }

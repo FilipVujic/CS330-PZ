@@ -10,7 +10,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 
 public interface JsonPlaceholderAPI {
@@ -27,11 +26,8 @@ public interface JsonPlaceholderAPI {
     @POST("entity.recipe/")
     Call<Recipe> createRecipe(@Body Recipe recipe);
 
-    @GET("entity.recipe/{username}")
-    Call<List<Recipe>> getUserRecipes(@Path("username") String username);
-
-    @GET("entity.recipe")
-    Call<List<Recipe>> getUsersRecipes(@Query("username") String username);
+    @GET("entity.recipe/query/{username}")
+    Call<List<Recipe>> getUsersRecipes(@Path("username") String username);
 
 
 }
