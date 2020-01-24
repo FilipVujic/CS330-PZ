@@ -16,10 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.metropolitan.cs330pz.MainActivity;
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
+import com.metropolitan.cs330pz.util.DBAdapter;
 
 public class RecipeActivity extends AppCompatActivity {
+
+    DBAdapter db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +34,34 @@ public class RecipeActivity extends AppCompatActivity {
         Intent test = getIntent();
         recipe = (Recipe)test.getSerializableExtra("RecipeObj");
         Log.e("NOTIFICATION", recipe.getRecipeTitle());
+
+        // Insert recipe into database (testing)
+        db = new DBAdapter(this);
+
+        db.open();
+        long check = db.insertRecipe(
+                recipe.getId(),
+                recipe.getUsername(),
+                recipe.getImage_url(),
+                recipe.getRecipeTitle(),
+                recipe.getSynopsis(),
+                recipe.getDescription(),
+                recipe.getIngredients(),
+                recipe.getPreparation(),
+                MainActivity.sharedPreferences.getString("username", ""
+                )
+
+        );
+
+
+
+        if (check != -1) Toast.makeText(getBaseContext(), "Podaci su uneti.",
+                Toast.LENGTH_SHORT).show();
+        else Toast.makeText(getBaseContext(), "Greska! Podaci nisu uneti.",
+                Toast.LENGTH_SHORT).show();
+        db.close();
+        //END
+
 
         View viewRecipe;
         LayoutInflater scrollLayout = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
