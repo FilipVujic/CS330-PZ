@@ -1,5 +1,7 @@
 package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -10,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -85,6 +88,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
 
+                showAlertNoInternet();
             }
         });
 
@@ -172,4 +176,29 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    public void showAlertNoInternet() {
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(HomeActivity.this);
+        builder1.setMessage("Can't connect to the internet. You can still browse your saved recipes.");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        /*builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });*/
+
+        AlertDialog alertDialog = builder1.create();
+        alertDialog.show();
+    }
 }
