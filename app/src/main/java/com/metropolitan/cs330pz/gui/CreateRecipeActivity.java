@@ -12,8 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.metropolitan.cs330pz.MainActivity;
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
+import com.metropolitan.cs330pz.entity.RecipeTag;
+import com.metropolitan.cs330pz.entity.Tag;
 import com.metropolitan.cs330pz.util.DBAdapter;
 import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +36,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
         final EditText title = (EditText)findViewById(R.id.create_recipe_title);
         final EditText synopsis = (EditText)findViewById(R.id.create_recipe_synopsis);
+        final EditText tags = (EditText) findViewById(R.id.create_recipe_tags);
         final EditText description = (EditText)findViewById(R.id.create_recipe_description);
         final EditText ingredients = (EditText)findViewById(R.id.create_recipe_ingredients);
         final EditText preparation = (EditText)findViewById(R.id.create_recipe_preparation);
@@ -57,8 +63,22 @@ public class CreateRecipeActivity extends AppCompatActivity {
                         preparationStr,
                         imageUrlStr
                 );
-
                 postRecipe(recipe);
+
+                //List<RecipeTag> listRecipeTag = new LinkedList<>();
+
+                String[] listOfTags = tags.getText().toString().split(",");
+                for(String tagName : listOfTags) {
+
+                    Tag tag = new Tag(tagName);
+                    postTags(tag);
+
+                    //RecipeTag recipeTag = new RecipeTag(recipe.getId(), tagName);
+                    postRecipeTags(listOfTags, recipe);
+                }
+
+
+
             }
         });
 
@@ -96,6 +116,44 @@ public class CreateRecipeActivity extends AppCompatActivity {
         });
     }
 
+    public void postTags(Tag tag) {
 
+        String url = getResources().getString(R.string.url);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
+
+        Call<Tag> call = jsonPlaceholderAPI.createTag(tag);
+
+        call.enqueue(new Callback<Tag>() {
+            @Override
+            public void onResponse(Call<Tag> call, Response<Tag> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Tag> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void postRecipeTags(String[] listOfTags, Recipe recipe) {
+
+        String url = getResources().getString(R.string.url);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
+
+        //Call<Recipe> call = jsonPlaceholderAPI.getRe
+    }
 
 }

@@ -7,12 +7,6 @@ import java.io.Serializable;
 public class Recipe implements Serializable {
 
 
-/*    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }*/
-
     public int id;
     public String username;
     @SerializedName("imageUrl")
