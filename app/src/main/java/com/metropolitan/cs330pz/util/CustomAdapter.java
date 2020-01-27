@@ -28,6 +28,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
         TextView title;
         TextView synopsis;
         ImageView image;
+        TextView username;
     }
 
     public CustomAdapter(ArrayList<Recipe> recipes, Context context) {
@@ -54,7 +55,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
             viewHolder.title = (TextView) convertView.findViewById(R.id.recipeTitle);
             viewHolder.synopsis = (TextView) convertView.findViewById(R.id.recipeSynopsis);
             viewHolder.image = (ImageView) convertView.findViewById(R.id.imageView1ID);
-
+            viewHolder.username = (TextView)convertView.findViewById((R.id.recipeUsername));
 
             convertView.setTag(viewHolder);
         } else {
@@ -76,6 +77,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
 
         viewHolder.title.setText(dataModel.getRecipeTitle());
         viewHolder.synopsis.setText(dataModel.getSynopsis());
+        viewHolder.username.setText("by " + dataModel.getUsername());
 
 
         // Return the completed view to render on screen

@@ -1,4 +1,4 @@
-package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
+package com.metropolitan.cs330pz.gui;
 
 import android.content.Intent;
 

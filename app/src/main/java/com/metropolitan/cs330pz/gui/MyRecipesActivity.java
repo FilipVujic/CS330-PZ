@@ -1,4 +1,4 @@
-package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
+package com.metropolitan.cs330pz.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +32,12 @@ public class MyRecipesActivity extends AppCompatActivity {
     private static CustomAdapter adapter;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        fetchData();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -55,12 +61,25 @@ public class MyRecipesActivity extends AppCompatActivity {
 
                 Intent goToRecipe = new Intent(getApplicationContext(), RecipeActivity.class);
                 goToRecipe.putExtra("RecipeObj", dataModel);
+                goToRecipe.putExtra("From activity", "my_recipes");
                 startActivity(goToRecipe);
 
 
             }
         });
 
+        fetchData();
+
+    }
+
+    private void updateList(List<Recipe> recipes) {
+
+        dataModels.clear();
+        dataModels.addAll(recipes);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void fetchData() {
 
         String url = getResources().getString(R.string.url);
 
@@ -87,12 +106,5 @@ public class MyRecipesActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void updateList(List<Recipe> recipes) {
-
-        dataModels.clear();
-        dataModels.addAll(recipes);
-        adapter.notifyDataSetChanged();
     }
 }

@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.metropolitan.cs330pz.MainActivity;
+import com.metropolitan.cs330pz.entity.Recipe;
+
 import java.io.File;
 
 public class DBAdapter extends SQLiteOpenHelper {
@@ -72,39 +75,39 @@ public class DBAdapter extends SQLiteOpenHelper {
     }
 
     //---umetanje recepta u bazu---
-    public long insertRecipe(int id, String username, String image_url, String title, String synopsis, String description, String ingredients, String preparation, String saved_by) {
+    public long insertRecipe(Recipe recipe) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         //
-        contentValues.put(KEY_ID, id);
-        contentValues.put(KEY_USERNAME, username);
-        contentValues.put(KEY_IMAGE_URL, image_url);
-        contentValues.put(KEY_TITLE, title);
-        contentValues.put(KEY_SYNOPSIS, synopsis);
-        contentValues.put(KEY_DESCRIPTION, description);
-        contentValues.put(KEY_INGREDIENTS, ingredients);
-        contentValues.put(KEY_PREPARATION, preparation);
-        contentValues.put(KEY_SAVED_BY, saved_by);
+        contentValues.put(KEY_ID, recipe.getId());
+        contentValues.put(KEY_USERNAME, recipe.getUsername());
+        contentValues.put(KEY_IMAGE_URL, recipe.getImage_url());
+        contentValues.put(KEY_TITLE, recipe.getRecipeTitle());
+        contentValues.put(KEY_SYNOPSIS, recipe.getSynopsis());
+        contentValues.put(KEY_DESCRIPTION, recipe.getDescription());
+        contentValues.put(KEY_INGREDIENTS, recipe.getIngredients());
+        contentValues.put(KEY_PREPARATION, recipe.getPreparation());
+        contentValues.put(KEY_SAVED_BY, MainActivity.sharedPreferences.getString("username", ""));
         return db.insert(DATABASE_TABLE, null, contentValues);
     }
 
-/*    //---brisanje konkretnog kontakta---
-    public boolean deleteContact(long broj_indeksa) {
-        return db.delete(DATABASE_TABLE, KEY_ID + "=" + broj_indeksa, null) > 0;
+    //---brisanje konkretnog kontakta---
+    public boolean deleteRecipe(int id) {
+        return db.delete(DATABASE_TABLE, KEY_ID + "=" + id, null) > 0;
     }
 
     //---preuzima sve kontakte---
-    public Cursor getAllContacts() {
-        return db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_NAME,
-                KEY_BROJ_BODOVA}, null, null, null, null, null);
+    public Cursor getAllSavedRecipes() {
+        return db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_USERNAME, KEY_IMAGE_URL, KEY_TITLE, KEY_SYNOPSIS, KEY_DESCRIPTION,
+                KEY_INGREDIENTS, KEY_PREPARATION, KEY_SAVED_BY}, null, null, null, null, null);
     }
 
     //---preuzima konkretan kontakt---
-    public Cursor getContact(long broj_indeksa) throws SQLException {
+    public Cursor getRecipe(int id) throws SQLException {
         Cursor c =
-                db.query(true, DATABASE_TABLE, new String[]{KEY_ID,
-                                KEY_NAME, KEY_BROJ_BODOVA}, KEY_ID + "=" + broj_indeksa, null,
+                db.query(true, DATABASE_TABLE, new String[]{KEY_ID, KEY_USERNAME, KEY_IMAGE_URL, KEY_TITLE, KEY_SYNOPSIS, KEY_DESCRIPTION,
+                                KEY_INGREDIENTS, KEY_PREPARATION, KEY_SAVED_BY}, KEY_ID + "=" + id, null,
                         null, null, null, null);
         if (c != null) {
             c.moveToFirst();
@@ -120,6 +123,6 @@ public class DBAdapter extends SQLiteOpenHelper {
 
         if (check == -1) return false;
         return true;
-    }*/
+    }
 
 }

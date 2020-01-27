@@ -147,11 +147,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/recipe_layout_saveRecipeBtn"
-        android:text="Save recipe"
+        android:id="@+id/recipe_layout_btn"
         android:layout_gravity="center"
-        android:onClick="saveRecipe"
         />
+
 
 </LinearLayout>
 

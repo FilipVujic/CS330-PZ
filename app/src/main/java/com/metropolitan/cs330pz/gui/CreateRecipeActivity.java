@@ -1,9 +1,6 @@
-package com.metropolitan.cs330pz.com.metropolitan.cs330pz.gui;
+package com.metropolitan.cs330pz.gui;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.metropolitan.cs330pz.MainActivity;
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
+import com.metropolitan.cs330pz.util.DBAdapter;
 import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
 import retrofit2.Call;
@@ -66,7 +64,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     }
 
-    public void postRecipe(Recipe recipe) {
+    public void postRecipe(final Recipe recipe) {
 
         String url = getResources().getString(R.string.url);
 
@@ -83,6 +81,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
 
+
+                DBAdapter db = new DBAdapter(getBaseContext());
+                db.open();
+                db.insertRecipe(recipe);
+                db.close();
                 Toast.makeText(getBaseContext(), "Recipe successfuly created!", Toast.LENGTH_SHORT).show();
             }
 

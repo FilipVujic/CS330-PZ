@@ -18,13 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".com.metropolitan.cs330pz.gui.LoginActivity"/>
-        <activity android:name=".com.metropolitan.cs330pz.gui.RegisterActivity"/>
-        <activity android:name=".com.metropolitan.cs330pz.gui.HomeActivity"/>
-        <activity android:name=".com.metropolitan.cs330pz.gui.RecipeActivity"/>
-        <activity android:name=".com.metropolitan.cs330pz.gui.ProfileActivity"/>
-        <activity android:name=".com.metropolitan.cs330pz.gui.CreateRecipeActivity"/>
-        <activity android:name=".com.metropolitan.cs330pz.gui.MyRecipesActivity"/>
+        <activity android:name=".gui.LoginActivity"/>
+        <activity android:name=".gui.RegisterActivity"/>
+        <activity android:name=".gui.HomeActivity"/>
+        <activity android:name=".gui.RecipeActivity"/>
+        <activity android:name=".gui.ProfileActivity"/>
+        <activity android:name=".gui.CreateRecipeActivity"/>
+        <activity android:name=".gui.MyRecipesActivity"/>
+        <activity android:name=".gui.SavedRecipesActivity"/>
 
 
     </application>
