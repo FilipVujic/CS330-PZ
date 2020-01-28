@@ -17,6 +17,7 @@ import com.metropolitan.cs330pz.entity.Tag;
 import com.metropolitan.cs330pz.util.DBAdapter;
 import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,19 +64,21 @@ public class CreateRecipeActivity extends AppCompatActivity {
                         preparationStr,
                         imageUrlStr
                 );
-                postRecipe(recipe);
 
                 //List<RecipeTag> listRecipeTag = new LinkedList<>();
 
                 String[] listOfTags = tags.getText().toString().split(",");
-                for(String tagName : listOfTags) {
+                postRecipe(recipe, Arrays.asList(listOfTags));
 
-                    Tag tag = new Tag(tagName);
-                    postTags(tag);
+                /*for(String tagName : listOfTags) {
+
+                    //Tag tag = new Tag(tagName);
+
+
 
                     //RecipeTag recipeTag = new RecipeTag(recipe.getId(), tagName);
-                    postRecipeTags(listOfTags, recipe);
-                }
+                    //postRecipeTags(listOfTags, recipe);
+                }*/
 
 
 
@@ -84,7 +87,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     }
 
-    public void postRecipe(final Recipe recipe) {
+    public void postRecipe(final Recipe recipe, final List<String> listOfTags) {
 
         String url = getResources().getString(R.string.url);
 
@@ -107,6 +110,10 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 db.insertRecipe(recipe);
                 db.close();
                 Toast.makeText(getBaseContext(), "Recipe successfuly created!", Toast.LENGTH_SHORT).show();
+
+                postTags(listOfTags);
+                postRecipeTags(recipe, listOfTags);
+
             }
 
             @Override
@@ -116,7 +123,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
         });
     }
 
-    public void postTags(Tag tag) {
+    public void postTags(List<String> listOfTagStrings) {
 
         String url = getResources().getString(R.string.url);
 
@@ -127,22 +134,27 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
         JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
 
-        Call<Tag> call = jsonPlaceholderAPI.createTag(tag);
+        for(String tagName : listOfTagStrings) {
 
-        call.enqueue(new Callback<Tag>() {
-            @Override
-            public void onResponse(Call<Tag> call, Response<Tag> response) {
+            Tag tag = new Tag(tagName);
 
-            }
+            Call<Tag> call = jsonPlaceholderAPI.createTag(tag);
 
-            @Override
-            public void onFailure(Call<Tag> call, Throwable t) {
+            call.enqueue(new Callback<Tag>() {
+                @Override
+                public void onResponse(Call<Tag> call, Response<Tag> response) {
 
-            }
-        });
+                }
+
+                @Override
+                public void onFailure(Call<Tag> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
-    public void postRecipeTags(String[] listOfTags, Recipe recipe) {
+    public void postRecipeTags(Recipe recipe, List<String> listOfTagStrings) {
 
         String url = getResources().getString(R.string.url);
 
@@ -153,7 +165,29 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
         JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
 
-        //Call<Recipe> call = jsonPlaceholderAPI.getRe
+        //List<RecipeTag> recipeTags = new LinkedList<>();
+
+        for (String tagName : listOfTagStrings) {
+
+            RecipeTag recipeTag = new RecipeTag(recipe.getId(), tagName);
+
+            Call<RecipeTag> call = jsonPlaceholderAPI.createRecipeTag(recipeTag);
+
+            call.enqueue(new Callback<RecipeTag>() {
+                @Override
+                public void onResponse(Call<RecipeTag> call, Response<RecipeTag> response) {
+
+
+                }
+
+                @Override
+                public void onFailure(Call<RecipeTag> call, Throwable t) {
+
+                }
+            });
+        }
+
+
     }
 
 }
