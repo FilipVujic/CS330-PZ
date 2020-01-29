@@ -1,6 +1,7 @@
 package com.metropolitan.cs330pz.gui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,14 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.metropolitan.cs330pz.MainActivity;
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
-import com.metropolitan.cs330pz.entity.RecipeTag;
-import com.metropolitan.cs330pz.entity.Tag;
 import com.metropolitan.cs330pz.util.DBAdapter;
 import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +36,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
         final EditText title = (EditText)findViewById(R.id.create_recipe_title);
         final EditText synopsis = (EditText)findViewById(R.id.create_recipe_synopsis);
-        final EditText tags = (EditText) findViewById(R.id.create_recipe_tags);
         final EditText description = (EditText)findViewById(R.id.create_recipe_description);
         final EditText ingredients = (EditText)findViewById(R.id.create_recipe_ingredients);
         final EditText preparation = (EditText)findViewById(R.id.create_recipe_preparation);
@@ -55,6 +53,12 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 String preparationStr = preparation.getText().toString();
                 String imageUrlStr = imageUrl.getText().toString();
 
+                Date currentTime = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd. MMM yyyy. hh:mm:ss z");
+                // Give it to me in GMT time.
+                sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                String date = sdf.format(currentTime);
+
                 Recipe recipe = new Recipe(
                         MainActivity.sharedPreferences.getString("username", ""),
                         titleStr,
@@ -62,32 +66,17 @@ public class CreateRecipeActivity extends AppCompatActivity {
                         descriptionStr,
                         ingredientsStr,
                         preparationStr,
-                        imageUrlStr
+                        imageUrlStr,
+                        date
                 );
 
-                //List<RecipeTag> listRecipeTag = new LinkedList<>();
-
-                String[] listOfTags = tags.getText().toString().split(",");
-                postRecipe(recipe, Arrays.asList(listOfTags));
-
-                /*for(String tagName : listOfTags) {
-
-                    //Tag tag = new Tag(tagName);
-
-
-
-                    //RecipeTag recipeTag = new RecipeTag(recipe.getId(), tagName);
-                    //postRecipeTags(listOfTags, recipe);
-                }*/
-
-
-
+                postRecipe(recipe);
             }
         });
 
     }
 
-    public void postRecipe(final Recipe recipe, final List<String> listOfTags) {
+    public void postRecipe(final Recipe recipe) {
 
         String url = getResources().getString(R.string.url);
 
@@ -110,84 +99,16 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 db.insertRecipe(recipe);
                 db.close();
                 Toast.makeText(getBaseContext(), "Recipe successfuly created!", Toast.LENGTH_SHORT).show();
-
-                postTags(listOfTags);
-                postRecipeTags(recipe, listOfTags);
-
             }
 
             @Override
             public void onFailure(Call<Recipe> call, Throwable t) {
 
+                Log.e("Post Error", t.toString());
             }
         });
     }
 
-    public void postTags(List<String> listOfTagStrings) {
 
-        String url = getResources().getString(R.string.url);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
-
-        for(String tagName : listOfTagStrings) {
-
-            Tag tag = new Tag(tagName);
-
-            Call<Tag> call = jsonPlaceholderAPI.createTag(tag);
-
-            call.enqueue(new Callback<Tag>() {
-                @Override
-                public void onResponse(Call<Tag> call, Response<Tag> response) {
-
-                }
-
-                @Override
-                public void onFailure(Call<Tag> call, Throwable t) {
-
-                }
-            });
-        }
-    }
-
-    public void postRecipeTags(Recipe recipe, List<String> listOfTagStrings) {
-
-        String url = getResources().getString(R.string.url);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
-
-        //List<RecipeTag> recipeTags = new LinkedList<>();
-
-        for (String tagName : listOfTagStrings) {
-
-            RecipeTag recipeTag = new RecipeTag(recipe.getId(), tagName);
-
-            Call<RecipeTag> call = jsonPlaceholderAPI.createRecipeTag(recipeTag);
-
-            call.enqueue(new Callback<RecipeTag>() {
-                @Override
-                public void onResponse(Call<RecipeTag> call, Response<RecipeTag> response) {
-
-
-                }
-
-                @Override
-                public void onFailure(Call<RecipeTag> call, Throwable t) {
-
-                }
-            });
-        }
-
-
-    }
 
 }

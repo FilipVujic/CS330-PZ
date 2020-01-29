@@ -115,7 +115,8 @@ public class SavedRecipesActivity extends AppCompatActivity {
                         c.getString(4),
                         c.getString(5),
                         c.getString(6),
-                        c.getString(7)
+                        c.getString(7),
+                        c.getString(8)
                 );
 
                 Log.e("DB Operations", "ID recepta " + recipe.getId());

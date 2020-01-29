@@ -7,6 +7,12 @@ import java.io.Serializable;
 public class Recipe implements Serializable {
 
 
+/*    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }*/
+
     public int id;
     public String username;
     @SerializedName("imageUrl")
@@ -16,19 +22,22 @@ public class Recipe implements Serializable {
     public String description;
     public String ingredients;
     public String preparation;
+    @SerializedName("dateInserted")
+    public String date_inserted;
 
-    public Recipe(int id, String username, String image_url, String title, String synopsis, String description, String ingredients, String preparation) {
+    public Recipe(int id, String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url, String date_inserted) {
         this.id = id;
         this.username = username;
-        this.image_url = image_url;
         this.title = title;
         this.synopsis = synopsis;
         this.description = description;
         this.ingredients = ingredients;
         this.preparation = preparation;
+        this.image_url = image_url;
+        this.date_inserted = date_inserted;
     }
 
-    public Recipe(String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url) {
+    public Recipe(String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url, String date_inserted) {
         this.username = username;
         this.title = title;
         this.synopsis = synopsis;
@@ -36,6 +45,7 @@ public class Recipe implements Serializable {
         this.ingredients = ingredients;
         this.preparation = preparation;
         this.image_url = image_url;
+        this.date_inserted = date_inserted;
     }
 
 
@@ -50,6 +60,7 @@ public class Recipe implements Serializable {
                 ", description='" + description + '\'' +
                 ", ingredients='" + ingredients + '\'' +
                 ", preparation='" + preparation + '\'' +
+                ", date_inserted='" + date_inserted + '\'' +
                 '}';
     }
 
@@ -115,5 +126,13 @@ public class Recipe implements Serializable {
 
     public void setPreparation(String preparation) {
         this.preparation = preparation;
+    }
+    //
+    public String getDate_inserted() {
+        return date_inserted;
+    }
+
+    public void setDate_inserted(String date_inserted) {
+        this.date_inserted = date_inserted;
     }
 }

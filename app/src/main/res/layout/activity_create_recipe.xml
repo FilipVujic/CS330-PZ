@@ -60,16 +60,6 @@
         android:layout_marginBottom="30dp"
         />
 
-    <EditText
-        android:id="@+id/create_recipe_tags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:textSize="14dp"
-        android:textColor="#181a19"
-        android:hint="Separate tags with commas, no spaces!"
-        />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

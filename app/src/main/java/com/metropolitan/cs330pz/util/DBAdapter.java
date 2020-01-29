@@ -24,6 +24,7 @@ public class DBAdapter extends SQLiteOpenHelper {
     static final String KEY_INGREDIENTS = "ingredients";
     static final String KEY_PREPARATION = "preparation";
     static final String KEY_SAVED_BY = "saved_by";
+    static final String KEY_DATE_INSERTED = "date_inserted";
     static final String TAG = "DBAdapter";
 
     static final String DATABASE_NAME = "cs330pz.db";
@@ -50,7 +51,8 @@ public class DBAdapter extends SQLiteOpenHelper {
                 + "description text,"
                 + "ingredients text,"
                 + "preparation text,"
-                + "saved_by text"
+                + "saved_by text,"
+                + "date_inserted text"
                 + ");");
     }
 
@@ -80,7 +82,7 @@ public class DBAdapter extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         //
-        contentValues.put(KEY_ID, recipe.getId());
+        //contentValues.put(KEY_ID, recipe.getId());
         contentValues.put(KEY_USERNAME, recipe.getUsername());
         contentValues.put(KEY_IMAGE_URL, recipe.getImage_url());
         contentValues.put(KEY_TITLE, recipe.getRecipeTitle());
@@ -89,6 +91,7 @@ public class DBAdapter extends SQLiteOpenHelper {
         contentValues.put(KEY_INGREDIENTS, recipe.getIngredients());
         contentValues.put(KEY_PREPARATION, recipe.getPreparation());
         contentValues.put(KEY_SAVED_BY, MainActivity.sharedPreferences.getString("username", ""));
+        contentValues.put(KEY_DATE_INSERTED, recipe.getDate_inserted());
         return db.insert(DATABASE_TABLE, null, contentValues);
     }
 
@@ -100,14 +103,14 @@ public class DBAdapter extends SQLiteOpenHelper {
     //---preuzima sve kontakte---
     public Cursor getAllSavedRecipes() {
         return db.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_USERNAME, KEY_IMAGE_URL, KEY_TITLE, KEY_SYNOPSIS, KEY_DESCRIPTION,
-                KEY_INGREDIENTS, KEY_PREPARATION, KEY_SAVED_BY}, null, null, null, null, null);
+                KEY_INGREDIENTS, KEY_PREPARATION, KEY_SAVED_BY, KEY_DATE_INSERTED}, null, null, null, null, null);
     }
 
     //---preuzima konkretan kontakt---
     public Cursor getRecipe(int id) throws SQLException {
         Cursor c =
                 db.query(true, DATABASE_TABLE, new String[]{KEY_ID, KEY_USERNAME, KEY_IMAGE_URL, KEY_TITLE, KEY_SYNOPSIS, KEY_DESCRIPTION,
-                                KEY_INGREDIENTS, KEY_PREPARATION, KEY_SAVED_BY}, KEY_ID + "=" + id, null,
+                                KEY_INGREDIENTS, KEY_PREPARATION, KEY_SAVED_BY, KEY_DATE_INSERTED}, KEY_ID + "=" + id, null,
                         null, null, null, null);
         if (c != null) {
             c.moveToFirst();
