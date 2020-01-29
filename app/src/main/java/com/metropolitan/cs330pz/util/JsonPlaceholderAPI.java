@@ -1,6 +1,8 @@
 package com.metropolitan.cs330pz.util;
 
 import com.metropolitan.cs330pz.entity.Recipe;
+import com.metropolitan.cs330pz.entity.RecipeTag;
+import com.metropolitan.cs330pz.entity.Tag;
 import com.metropolitan.cs330pz.entity.User;
 
 import java.util.List;
@@ -29,11 +31,24 @@ public interface JsonPlaceholderAPI {
     @POST("entity.recipe/")
     Call<Recipe> createRecipe(@Body Recipe recipe);
 
-    @GET("entity.recipe/query/{username}")
+    /*@POST("entity.recipe/createAndReturnId")
+    Call<Recipe> createRecipeAndReturnId(@Body Recipe recipe);*/
+
+    @GET("entity.recipe/queryObjList/{username}")
     Call<List<Recipe>> getUsersRecipes(@Path("username") String username);
+
+    @GET("entity.recipe/queryObj/{username}/{date}")
+    Call<Recipe> getUsersRecipesByDate(@Path("username") String username, @Path("date") String date);
+
+    @GET("entity.recipe/queryID/{username}/{date}")
+    Call<Integer> getUsersRecipeIdByDate(@Path("username") String username, @Path("date") String date);
 
     @DELETE("entity.recipe/{id}")
     Call<ResponseBody> deleteRecipe(@Path("id") int id);
 
+    @POST("entity.tag/")
+    Call<Tag> createTag(@Body Tag tag);
 
+    @POST("entity.recipetag/")
+    Call<RecipeTag> createRecipeTag(@Body RecipeTag recipeTag);
 }

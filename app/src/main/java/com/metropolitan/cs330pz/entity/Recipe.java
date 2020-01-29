@@ -1,5 +1,6 @@
 package com.metropolitan.cs330pz.entity;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -13,7 +14,8 @@ public class Recipe implements Serializable {
 
     }*/
 
-    public int id;
+    @Expose
+    public Integer id;
     public String username;
     @SerializedName("imageUrl")
     public String image_url;
@@ -25,7 +27,7 @@ public class Recipe implements Serializable {
     @SerializedName("dateInserted")
     public String date_inserted;
 
-    public Recipe(int id, String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url, String date_inserted) {
+    public Recipe(Integer id, String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url, String date_inserted) {
         this.id = id;
         this.username = username;
         this.title = title;
@@ -64,11 +66,11 @@ public class Recipe implements Serializable {
                 '}';
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
