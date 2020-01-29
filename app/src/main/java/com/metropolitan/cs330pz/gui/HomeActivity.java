@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ArrayList<Recipe> dataModels;
     private static CustomAdapter adapter;
+    boolean alertShown = false;
 
     @Override
     protected void onResume() {
@@ -46,9 +48,33 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        final EditText searchField = (EditText) findViewById(R.id.home_search);
-        final TextView resultField = (TextView) findViewById(R.id.home_result);
+        /*final EditText searchField = (EditText) findViewById(R.id.home_search);
+        final TextView resultField = (TextView) findViewById(R.id.home_result);*/
         final ListView listView = (ListView) findViewById(R.id.listViewID);
+        SearchView searchView = (SearchView) findViewById(R.id.simpleSearchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                callSearch(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//              if (searchView.isExpanded() && TextUtils.isEmpty(newText)) {
+                callSearch(newText);
+//              }
+                return true;
+            }
+
+            public void callSearch(String query) {
+                //Do searching
+
+                Log.e("Search", query);
+            }
+
+        });
 
         dataModels = new ArrayList<>();
 
@@ -110,7 +136,9 @@ public class HomeActivity extends AppCompatActivity {
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
 
                 Log.e("Fetch error", t.toString());
-                showNoInternetAlert();
+                if(!alertShown) {
+                    showNoInternetAlert();
+                }
             }
         });
     }
@@ -208,6 +236,7 @@ public class HomeActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = builder1.create();
         alertDialog.show();
+        alertShown = true;
     }
 
 }

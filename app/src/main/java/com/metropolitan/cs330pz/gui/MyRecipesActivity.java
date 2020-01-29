@@ -41,10 +41,10 @@ public class MyRecipesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_my_recipes);
 
-        final EditText searchField = (EditText) findViewById(R.id.home_search);
-        final TextView resultField = (TextView) findViewById(R.id.home_result);
+        /*final EditText searchField = (EditText) findViewById(R.id.home_search);
+        final TextView resultField = (TextView) findViewById(R.id.home_result);*/
         final ListView listView = (ListView) findViewById(R.id.listViewID);
 
         dataModels = new ArrayList<>();
