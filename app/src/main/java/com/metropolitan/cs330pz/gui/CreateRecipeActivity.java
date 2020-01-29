@@ -15,6 +15,7 @@ import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
 import com.metropolitan.cs330pz.entity.RecipeTag;
 import com.metropolitan.cs330pz.entity.Tag;
+import com.metropolitan.cs330pz.util.DBAdapter;
 import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
 import java.text.SimpleDateFormat;
@@ -78,18 +79,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
                 postRecipe(recipe);
 
-                Log.e("Provera vrednosti", String.valueOf(recipeId));
-
-
                 for(String tagName : tagStrings) {
                     Tag tag = new Tag(tagName);
                     postTag(tag);
-                    Log.e("Tag Strings", tagName);
+                    //Log.e("Tag Strings", tagName);
                 }
-
-                //postRecipeTags(recipe, tagStrings);
-
-
 
             }
         });
@@ -113,14 +107,14 @@ public class CreateRecipeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
 
-
-                //Log.e("Returned ID", response.body().toString());
-                /*DBAdapter db = new DBAdapter(getBaseContext());
+                DBAdapter db = new DBAdapter(getBaseContext());
                 db.open();
                 db.insertRecipe(recipe);
-                db.close();*/
-                fetchRecipeId(recipe);
+                db.close();
                 Toast.makeText(getBaseContext(), "Recipe successfuly created!", Toast.LENGTH_SHORT).show();
+
+                postRecipeTags(recipe);
+
 
             }
 
@@ -131,17 +125,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
             }
         });
     }
-
-        public void postRecipeTags(int recipeId, String[] tagStrings) {
-
-        int counter = 0;
-                    for(String tagName : tagStrings) {
-                        RecipeTag recipeTag = new RecipeTag(recipeId, tagName);
-                        postRecipeTag(recipeTag);
-                        Log.e("Counter", String.valueOf(counter));
-                    }
-
-        }
 
         public void postTag(Tag tag) {
 
@@ -196,7 +179,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
             });
         }
 
-    public void fetchRecipeId(Recipe recipe) {
+    public void postRecipeTags(Recipe recipe) {
 
         String url = getResources().getString(R.string.url);
 
@@ -215,9 +198,14 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
                 recipeId = response.body();
 
-                postRecipeTags(recipeId, tagStrings);
-
-                Log.e("Current Recipe ID", response.body().toString());
+                //int counter = 0;
+                for(String tagName : tagStrings) {
+                    RecipeTag recipeTag = new RecipeTag(recipeId, tagName);
+                    postRecipeTag(recipeTag);
+                    //counter++;
+                }
+                //Log.e("Counter", String.valueOf(counter));
+                //Log.e("Current Recipe ID", response.body().toString());
             }
 
             @Override
