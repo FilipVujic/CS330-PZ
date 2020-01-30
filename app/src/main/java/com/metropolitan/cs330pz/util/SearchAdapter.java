@@ -1,13 +1,12 @@
 package com.metropolitan.cs330pz.util;
 
+import android.content.Context;
 import android.util.Log;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
-import com.metropolitan.cs330pz.entity.RecipeTag;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,24 +16,44 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SearchAdapter extends AppCompatActivity {
+public class SearchAdapter {
 
-    static List<Recipe> recipeList = new LinkedList<>();
+    private Context context;
+    private OnSearchResult listener;
 
-    public List<Recipe> findRecipesByTag(final String tag) {
+    public interface OnSearchResult{
 
-        String url = getResources().getString(R.string.url);
+        void onResult(List<Recipe> recipeResults);
+    }
+
+    public SearchAdapter(Context context) {
+        this.context = context;
+    }
+
+    public void setOnSearchResultListener(OnSearchResult listener) {
+
+        this.listener = listener;
+    }
+
+    List<Recipe> recipeList = Collections.synchronizedList( new LinkedList<Recipe>());
+
+
+    public void findRecipesByTag(final String tag) {
+
+        String url = context.getResources().getString(R.string.url);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
+        final JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
+
+
+        Call<List<Recipe>> call1 = jsonPlaceholderAPI.getRecipesByTag(tag);
+        Call<List<Integer>> call2 = jsonPlaceholderAPI.getRecipeIDsByTag(tag);
 
         //Call for recipes
-        Call<List<Recipe>> call1 = jsonPlaceholderAPI.getRecipesByTag(tag);
-
         call1.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
@@ -43,9 +62,14 @@ public class SearchAdapter extends AppCompatActivity {
                 for(Recipe recipe : responseList) {
 
                     recipeList.add(recipe);
-
                     Log.e("Found recipe", recipe.toString());
                 }
+
+                if(listener != null) {
+
+                    listener.onResult(recipeList);
+                }
+
             }
 
             @Override
@@ -54,9 +78,7 @@ public class SearchAdapter extends AppCompatActivity {
             }
         });
 
-/*        //Call for RecipeTags
-        Call<List<Integer>> call2 = jsonPlaceholderAPI.getRecipeIDsByTag(tag);
-
+        //Call for RecipeTags
         call2.enqueue(new Callback<List<Integer>>() {
             @Override
             public void onResponse(Call<List<Integer>> call, Response<List<Integer>> response) {
@@ -65,14 +87,20 @@ public class SearchAdapter extends AppCompatActivity {
                 for(Integer integer : integerList) {
 
                     getRecipeById(integer);
+
+                    Log.e("RecipeTag Fetch", String.valueOf(integer));
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<Integer>> call, Throwable t) {
 
+                Log.e("Log", t.toString());
             }
-        });*/
+        });
+
+
 
 /*        //First thread
         Thread t1 = new Thread(new Runnable() {
@@ -103,12 +131,12 @@ public class SearchAdapter extends AppCompatActivity {
         }*/
 
 
-        return recipeList;
+        //return recipeList;
     }
 
     public void getRecipeById(Integer id) {
 
-        String url = getResources().getString(R.string.url);
+        String url = context.getResources().getString(R.string.url);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -124,7 +152,11 @@ public class SearchAdapter extends AppCompatActivity {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 Recipe recipe = response.body();
-                SearchAdapter.recipeList.add(recipe);
+                recipeList.add(recipe);
+                Log.e("RecipeTag Recipe", recipe.toString());
+                if(listener != null) {
+                    listener.onResult(recipeList);
+                }
             }
 
             @Override
@@ -132,6 +164,8 @@ public class SearchAdapter extends AppCompatActivity {
 
             }
         });
+
+        //return recipeList;
     }
 
 

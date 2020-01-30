@@ -33,11 +33,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements SearchAdapter.OnSearchResult {
 
     ArrayList<Recipe> dataModels;
     private static CustomAdapter adapter;
     boolean alertShown = false;
+
+
 
     @Override
     protected void onResume() {
@@ -63,7 +65,9 @@ public class HomeActivity extends AppCompatActivity {
                 String searchText = searchBar.getText().toString();
                 Log.e("Search text", searchText);
 
-                
+                SearchAdapter searchAdapter = new SearchAdapter(HomeActivity.this);
+                searchAdapter.setOnSearchResultListener(HomeActivity.this);
+                searchAdapter.findRecipesByTag(searchText);
             }
         });
 
@@ -230,4 +234,9 @@ public class HomeActivity extends AppCompatActivity {
         alertShown = true;
     }
 
+    @Override
+    public void onResult(List<Recipe> recipeResults) {
+
+        updateList(recipeResults);
+    }
 }
