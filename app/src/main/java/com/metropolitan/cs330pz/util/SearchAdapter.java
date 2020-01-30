@@ -100,8 +100,6 @@ public class SearchAdapter {
             }
         });
 
-
-
 /*        //First thread
         Thread t1 = new Thread(new Runnable() {
             @Override
@@ -155,6 +153,7 @@ public class SearchAdapter {
                 recipeList.add(recipe);
                 Log.e("RecipeTag Recipe", recipe.toString());
                 if(listener != null) {
+                    //Moze se dodati brojac da se saceka kraj iteracije
                     listener.onResult(recipeList);
                 }
             }

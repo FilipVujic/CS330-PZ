@@ -18,37 +18,10 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.profile_layout);
-
-        TextView username = (TextView)findViewById(R.id.profile_username);
-        TextView email = (TextView)findViewById(R.id.profile_email);
-
-        username.setText(MainActivity.sharedPreferences.getString("username", ""));
-        email.setText(MainActivity.sharedPreferences.getString("email", ""));
-
-
-
+        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, new ProfileFragment()).commit();
 
 
     }
 
-    public void logOut(View view) {
 
-        MainActivity.prefsEditor.remove("user_logged-in");
-        MainActivity.prefsEditor.remove("username");
-        MainActivity.prefsEditor.remove("email");
-        MainActivity.prefsEditor.remove("passwd");
-        MainActivity.prefsEditor.commit();
-
-        Intent goToLogin = new Intent(getApplicationContext(), LoginActivity.class);
-        goToLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        goToLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        goToLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        goToLogin.putExtra("EXIT", true);
-        startActivity(goToLogin);
-
-        Log.e("Login", "User logged out");
-
-        finish();
-    }
 }
