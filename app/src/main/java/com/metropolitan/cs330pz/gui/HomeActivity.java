@@ -21,6 +21,7 @@ import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
 import com.metropolitan.cs330pz.util.CustomAdapter;
 import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
+import com.metropolitan.cs330pz.util.SearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +70,13 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             public void callSearch(String query) {
-                //Do searching
 
-                Log.e("Search", query);
+                if(query.length() > 2) {
+
+                    /*SearchAdapter searchAdapter =  new SearchAdapter();
+                    searchAdapter.findRecipesByTag(query);*/
+                    Log.e("Search", query);
+                }
             }
 
         });

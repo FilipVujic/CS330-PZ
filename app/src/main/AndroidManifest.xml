@@ -26,6 +26,7 @@
         <activity android:name=".gui.CreateRecipeActivity"/>
         <activity android:name=".gui.MyRecipesActivity"/>
         <activity android:name=".gui.SavedRecipesActivity"/>
+        <activity android:name=".util.SearchAdapter"/>
 
 
     </application>

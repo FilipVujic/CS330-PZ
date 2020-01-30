@@ -28,6 +28,9 @@ public interface JsonPlaceholderAPI {
     @GET("entity.recipe/")
     Call<List<Recipe>> getRecipes();
 
+    @GET("entity.recipe/{id}")
+    Call<Recipe> getRecipeById(@Path("id") Integer id);
+
     @POST("entity.recipe/")
     Call<Recipe> createRecipe(@Body Recipe recipe);
 
@@ -36,6 +39,9 @@ public interface JsonPlaceholderAPI {
 
     @GET("entity.recipe/queryObjList/{username}")
     Call<List<Recipe>> getUsersRecipes(@Path("username") String username);
+
+    @GET("entity.recipe/queryTag/{tag}")
+    Call<List<Recipe>> getRecipesByTag(@Path("tag") String tag);
 
     @GET("entity.recipe/queryObj/{username}/{date}")
     Call<Recipe> getUsersRecipesByDate(@Path("username") String username, @Path("date") String date);
@@ -51,4 +57,7 @@ public interface JsonPlaceholderAPI {
 
     @POST("entity.recipetag/")
     Call<RecipeTag> createRecipeTag(@Body RecipeTag recipeTag);
+
+    @GET("entity.recipetag/queryTag/{tag}")
+    Call<List<Integer>> getRecipeIDsByTag(@Path("tag") String tag);
 }
