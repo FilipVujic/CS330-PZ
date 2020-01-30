@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -52,33 +53,18 @@ public class HomeActivity extends AppCompatActivity {
         /*final EditText searchField = (EditText) findViewById(R.id.home_search);
         final TextView resultField = (TextView) findViewById(R.id.home_result);*/
         final ListView listView = (ListView) findViewById(R.id.listViewID);
-        SearchView searchView = (SearchView) findViewById(R.id.simpleSearchView);
+        //SearchView searchView = (SearchView) findViewById(R.id.simpleSearchView);
+        final EditText searchBar = (EditText)findViewById(R.id.home_search);
+        ImageButton searchButton = (ImageButton)findViewById(R.id.home_searchButton);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                callSearch(query);
-                return true;
+            public void onClick(View v) {
+                String searchText = searchBar.getText().toString();
+                Log.e("Search text", searchText);
+
+                
             }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-//              if (searchView.isExpanded() && TextUtils.isEmpty(newText)) {
-                callSearch(newText);
-//              }
-                return true;
-            }
-
-            public void callSearch(String query) {
-
-                if(query.length() > 2) {
-
-                    /*SearchAdapter searchAdapter =  new SearchAdapter();
-                    searchAdapter.findRecipesByTag(query);*/
-                    Log.e("Search", query);
-                }
-            }
-
         });
 
         dataModels = new ArrayList<>();

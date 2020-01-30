@@ -19,11 +19,15 @@ import retrofit2.http.Path;
 
 public interface JsonPlaceholderAPI {
 
+    //User
+
     @GET("entity.user/{username}")
     Call<User> getUser(@Path("username") String username);
 
     @POST("entity.user/")
     Call<User> createUser(@Body User user);
+
+    //Recipe
 
     @GET("entity.recipe/")
     Call<List<Recipe>> getRecipes();
@@ -52,8 +56,12 @@ public interface JsonPlaceholderAPI {
     @DELETE("entity.recipe/{id}")
     Call<ResponseBody> deleteRecipe(@Path("id") int id);
 
+    //Tag
+
     @POST("entity.tag/")
     Call<Tag> createTag(@Body Tag tag);
+
+    //RecipeTag
 
     @POST("entity.recipetag/")
     Call<RecipeTag> createRecipeTag(@Body RecipeTag recipeTag);
