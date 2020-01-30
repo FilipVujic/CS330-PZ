@@ -1,11 +1,14 @@
 package com.metropolitan.cs330pz.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +24,7 @@ public class SearchAdapter {
     private Context context;
     private OnSearchResult listener;
 
-    public interface OnSearchResult{
+    public interface OnSearchResult {
 
         void onResult(List<Recipe> recipeResults);
     }
@@ -35,7 +38,7 @@ public class SearchAdapter {
         this.listener = listener;
     }
 
-    List<Recipe> recipeList = Collections.synchronizedList( new LinkedList<Recipe>());
+    List<Recipe> recipeList = Collections.synchronizedList(new LinkedList<Recipe>());
 
 
     public void findRecipesByTag(final String tag) {
@@ -50,123 +53,61 @@ public class SearchAdapter {
         final JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
 
 
-        Call<List<Recipe>> call1 = jsonPlaceholderAPI.getRecipesByTag(tag);
-        Call<List<Integer>> call2 = jsonPlaceholderAPI.getRecipeIDsByTag(tag);
-
-        //Call for recipes
-        call1.enqueue(new Callback<List<Recipe>>() {
+        @SuppressLint("StaticFieldLeak")
+        AsyncTask asyncTask = new AsyncTask() {
             @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                List<Recipe> responseList = response.body();
+            protected Object doInBackground(Object[] objects) {
 
-                for(Recipe recipe : responseList) {
+                Call<List<Recipe>> call1 = jsonPlaceholderAPI.getRecipesByTag(tag);
+                Call<List<Integer>> call2 = jsonPlaceholderAPI.getRecipeIDsByTag(tag);
 
-                    recipeList.add(recipe);
-                    Log.e("Found recipe", recipe.toString());
+
+                try {
+                    Response<List<Recipe>> response1 = call1.execute();
+
+                    List<Recipe> list1 = response1.body();
+
+                    for (Recipe recipe : list1) {
+
+                        recipeList.add(recipe);
+                    }
+
+                    Log.e("AsyncTask", "Gotov 1. task");
+
+                    Response<List<Integer>> response2 = call2.execute();
+
+                    List<Integer> list2 = response2.body();
+
+                    for (Integer integer : list2) {
+                        Call<Recipe> call3 = jsonPlaceholderAPI.getRecipeById(integer);
+                        Response<Recipe> response3 = call3.execute();
+                        Recipe recipe = response3.body();
+                        recipeList.add(recipe);
+
+                    }
+
+                    Log.e("AsyncTask", "Gotov 2. task");
+
+
+                    /*Log.e("Response 1", response1.body().toString());
+                    Log.e("Response 2", response2.body().toString());*/
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                if(listener != null) {
+                return null;
+            }
 
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (listener != null)
                     listener.onResult(recipeList);
-                }
-
             }
-
-            @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-
-            }
-        });
-
-        //Call for RecipeTags
-        call2.enqueue(new Callback<List<Integer>>() {
-            @Override
-            public void onResponse(Call<List<Integer>> call, Response<List<Integer>> response) {
-                List<Integer> integerList = response.body();
-
-                for(Integer integer : integerList) {
-
-                    getRecipeById(integer);
-
-                    Log.e("RecipeTag Fetch", String.valueOf(integer));
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Integer>> call, Throwable t) {
-
-                Log.e("Log", t.toString());
-            }
-        });
-
-/*        //First thread
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
+        };
+        asyncTask.execute("");
 
 
-            }
-        });
-
-        //Second thread
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-
-            }
-        });
-
-        t1.start();
-        t2.start();
-
-        try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
-
-        //return recipeList;
     }
-
-    public void getRecipeById(Integer id) {
-
-        String url = context.getResources().getString(R.string.url);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
-
-        //Call for recipes by ID
-        Call<Recipe> call3 = jsonPlaceholderAPI.getRecipeById(id);
-
-        call3.enqueue(new Callback<Recipe>() {
-            @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
-                Recipe recipe = response.body();
-                recipeList.add(recipe);
-                Log.e("RecipeTag Recipe", recipe.toString());
-                if(listener != null) {
-                    //Moze se dodati brojac da se saceka kraj iteracije
-                    listener.onResult(recipeList);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
-
-            }
-        });
-
-        //return recipeList;
-    }
-
-
 
 }

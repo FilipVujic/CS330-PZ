@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#58A362"
+    android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/home_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/home_header"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:paddingTop="5dp"
-        >
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
 
         <TextView
             android:id="@+id/home_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home"
-            android:layout_marginBottom="10dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="Home"
             android:textAlignment="center"
-            android:textSize="30dp"
-            />
+            android:textSize="30dp" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -32,53 +31,46 @@
             android:adjustViewBounds="true"
             android:maxWidth="40dp"
             android:maxHeight="40dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/plus_icon"
             android:onClick="goToCreateRecipe"
-            />
+            android:scaleType="centerInside"
+            android:src="@drawable/plus_icon" />
 
     </FrameLayout>
 
 
-
-
     <LinearLayout
+        android:id="@+id/home_search_linLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/home_header"
-        android:id="@+id/home_search_linLayout"
         android:gravity="center"
+        android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:paddingBottom="30dp"
-        >
+        android:paddingBottom="30dp">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="250dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:hint="Search"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:id="@+id/home_search"
-        />
+        <EditText
+            android:id="@+id/home_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:hint="Search"
+            android:minWidth="250dp"
+            android:textAlignment="center" />
 
         <ImageButton
+            android:id="@+id/home_searchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:maxWidth="40dp"
             android:maxHeight="40dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/search_icon"
             android:onClick="search"
-            android:id="@+id/home_searchButton"
-            />
-
+            android:scaleType="centerInside"
+            android:src="@drawable/search_icon" />
 
 
         <!--<SearchView
@@ -91,12 +83,10 @@
             />-->
 
 
-
     </LinearLayout>
 
 
-
-<!--    <TextView
+    <!--    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/home_result"
@@ -111,13 +101,11 @@
         android:padding="5dp"
         tools:listitem="@layout/recipe_list_item_layout" />
 
-<!--    <include layout="@layout/list_view"
+    <!--    <include layout="@layout/list_view"
         android:id="@+id/home_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/home_search"/>-->
-
-
 
 
 </RelativeLayout>
