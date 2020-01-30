@@ -1,66 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:id="@+id/register_title"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginLeft="80dp"
-        android:hint="Username"
-        android:id="@+id/register_username" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginLeft="80dp"
-        android:hint="Email"
-        android:id="@+id/register_email"/>
+        <TextView
+            android:id="@+id/register_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Register"
+            android:textAlignment="center"
+            android:textSize="30dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginLeft="80dp"
-        android:hint="Password"
-        android:id="@+id/register_passwd"/>
+        <EditText
+            android:id="@+id/register_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Username" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Register"
-        android:layout_marginBottom="50dp"
-        android:id="@+id/register_btnRegister"/>
+        <EditText
+            android:id="@+id/register_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Email" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already have an account? Login HERE."
-        android:layout_gravity="center"
-        android:id="@+id/register_goToLoginTxt"
-        android:onClick="goToLogin"
-        />
+        <EditText
+            android:id="@+id/register_passwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="50dp"
+            android:hint="Password" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/register_btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50dp"
+            android:text="Register" />
+
+        <TextView
+            android:id="@+id/register_goToLoginTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="goToLogin"
+            android:text="Already have an account? Login HERE." />
+
+    </LinearLayout>
+</ScrollView>

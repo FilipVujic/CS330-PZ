@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    >
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="30dp"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginLeft="80dp"
-        android:hint="Username"
-        android:id="@+id/login_username" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Login"
+            android:textAlignment="center"
+            android:textSize="30dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginLeft="80dp"
-        android:hint="Password"
-        android:id="@+id/login_passwd" />
+        <EditText
+            android:id="@+id/login_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Username" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Login"
-        android:layout_marginBottom="50dp"
-        android:id="@+id/login_btnLogin"/>
+        <EditText
+            android:id="@+id/login_passwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="50dp"
+            android:hint="Password" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Don't have an account? Register HERE."
-        android:layout_gravity="center"
-        android:id="@+id/login_goToRegTxt"
-        android:onClick="goToReg"
-        />
+        <Button
+            android:id="@+id/login_btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50dp"
+            android:text="Login" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/login_goToRegTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="goToReg"
+            android:text="Don't have an account? Register HERE." />
+
+    </LinearLayout>
+</ScrollView>
