@@ -80,35 +80,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
                         date
                 );
 
-                //AsyncTask START
-
-/*                @SuppressLint("StaticFieldLeak")
-                AsyncTask asyncTask = new AsyncTask() {
-                    @Override
-                    protected Object doInBackground(Object[] objects) {
-
-                        String url = getResources().getString(R.string.url);
-
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(url)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-
-                        JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
-
-                        Call<Recipe> call = jsonPlaceholderAPI.createRecipe(recipe);
-
-                        try {
-                            Response<Recipe> response = call.execute();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        return null;
-                    }
-                };*/
-                //AsyncTask END
-
                 postRecipe(recipe);
 
             }

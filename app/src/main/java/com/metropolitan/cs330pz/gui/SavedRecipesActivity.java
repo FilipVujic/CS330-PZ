@@ -83,7 +83,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
         c.moveToFirst();
         List<Recipe> recipes = new LinkedList<>();
 
-        Log.e("DB Operations", "Broj recepata " + c.getCount());
+        //Log.e("DB Operations", "Broj recepata " + c.getCount());
 
         if (c.getCount() > 0) {
 
@@ -103,6 +103,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
                 );
 
 
+                //Log.e("Recipe in base", recipe.toString());
 
                 //Log.e("DB Operations", "Kolona 8 " + c.getString(8));
 

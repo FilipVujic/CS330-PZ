@@ -75,9 +75,28 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
         Glide.with(getContext()).load(dataModel.getImage_url()).apply(options).into(viewHolder.image);
 
 
-        viewHolder.title.setText(dataModel.getRecipeTitle());
-        viewHolder.synopsis.setText(dataModel.getSynopsis());
-        viewHolder.username.setText("by " + dataModel.getUsername());
+
+        String cutTitle = "";
+        if(dataModel.getRecipeTitle().length() > 30)
+            cutTitle = dataModel.getRecipeTitle().substring(0,30) + "...";
+        else
+            cutTitle = dataModel.getRecipeTitle();
+
+        String cutSynopsis = "";
+        if(dataModel.getSynopsis().length() > 50)
+            cutSynopsis = dataModel.getSynopsis().substring(0,50) + "...";
+        else
+            cutSynopsis = dataModel.getSynopsis();
+
+        String cutUsername = "";
+        if(dataModel.getUsername().length() > 30)
+            cutUsername = dataModel.getUsername().substring(0,30) + "...";
+        else
+            cutUsername = dataModel.getUsername();
+
+        viewHolder.title.setText(cutTitle);
+        viewHolder.synopsis.setText(cutSynopsis);
+        viewHolder.username.setText("by " + cutUsername);
 
 
         // Return the completed view to render on screen

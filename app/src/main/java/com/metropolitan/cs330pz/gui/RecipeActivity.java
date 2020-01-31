@@ -100,7 +100,7 @@ public class RecipeActivity extends AppCompatActivity {
 
             Button btnSaveToFav = viewRecipe.findViewById(R.id.recipe_layout_btn);
 
-            if (isInLocalDB(recipe)) {
+            if (isInLocalDB(recipe) || recipe.getUsername().equals(MainActivity.sharedPreferences.getString("username", ""))) {
                 btnSaveToFav.setVisibility(View.GONE);
             } else {
                 btnSaveToFav.setText("Save to favourites");

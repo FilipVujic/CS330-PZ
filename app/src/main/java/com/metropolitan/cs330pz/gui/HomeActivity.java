@@ -67,9 +67,12 @@ public class HomeActivity extends AppCompatActivity implements SearchAdapter.OnS
                 String searchText = searchBar.getText().toString();
                 Log.e("Search text", searchText);
 
-                SearchAdapter searchAdapter = new SearchAdapter(HomeActivity.this);
-                searchAdapter.setOnSearchResultListener(HomeActivity.this);
-                searchAdapter.findRecipesByTag(searchText);
+                if(searchText.length() > 0) {
+
+                    SearchAdapter searchAdapter = new SearchAdapter(HomeActivity.this);
+                    searchAdapter.setOnSearchResultListener(HomeActivity.this);
+                    searchAdapter.findRecipesByTag(searchText);
+                }
             }
         });
 

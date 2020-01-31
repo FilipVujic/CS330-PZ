@@ -149,6 +149,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/recipe_layout_btn"
         android:layout_gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:textColor="#4E1A00"
         android:background="#1BAF1B"
         />
