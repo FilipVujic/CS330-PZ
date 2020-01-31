@@ -22,20 +22,9 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         prefsEditor = MainActivity.sharedPreferences.edit();
 
-        //empty database
-        /*DBAdapter db = new DBAdapter(this);
-        db.open();
-        db.deleteRecipe(1);
-        db.deleteRecipe(4);
-        db.close();*/
-
-        //end
-
         Intent setInitialView = new Intent(this, LoginActivity.class);
         startActivity(setInitialView);
         finish();
-
-
 
 
     }

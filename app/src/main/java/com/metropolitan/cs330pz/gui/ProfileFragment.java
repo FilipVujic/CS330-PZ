@@ -24,8 +24,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        TextView username = (TextView)v.findViewById(R.id.profile_username);
-        TextView email = (TextView)v.findViewById(R.id.profile_email);
+        TextView username = (TextView) v.findViewById(R.id.profile_username);
+        TextView email = (TextView) v.findViewById(R.id.profile_email);
         Button logOutBtn = v.findViewById(R.id.logOutBtn);
 
         logOutBtn.setOnClickListener(new View.OnClickListener() {

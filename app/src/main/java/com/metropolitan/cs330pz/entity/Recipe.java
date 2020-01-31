@@ -26,8 +26,9 @@ public class Recipe implements Serializable {
     public String preparation;
     @SerializedName("dateInserted")
     public String date_inserted;
+    public String saved_by;
 
-    public Recipe(Integer id, String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url, String date_inserted) {
+    public Recipe(Integer id, String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url, String saved_by, String date_inserted) {
         this.id = id;
         this.username = username;
         this.title = title;
@@ -36,6 +37,7 @@ public class Recipe implements Serializable {
         this.ingredients = ingredients;
         this.preparation = preparation;
         this.image_url = image_url;
+        this.saved_by = saved_by;
         this.date_inserted = date_inserted;
     }
 
@@ -47,6 +49,18 @@ public class Recipe implements Serializable {
         this.ingredients = ingredients;
         this.preparation = preparation;
         this.image_url = image_url;
+        this.date_inserted = date_inserted;
+    }
+
+    public Recipe(String username, String title, String synopsis, String description, String ingredients, String preparation, String image_url, String saved_by, String date_inserted) {
+        this.username = username;
+        this.title = title;
+        this.synopsis = synopsis;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.preparation = preparation;
+        this.image_url = image_url;
+        this.saved_by = saved_by;
         this.date_inserted = date_inserted;
     }
 
@@ -136,5 +150,13 @@ public class Recipe implements Serializable {
 
     public void setDate_inserted(String date_inserted) {
         this.date_inserted = date_inserted;
+    }
+
+    public String getSaved_by() {
+        return saved_by;
+    }
+
+    public void setSaved_by(String saved_by) {
+        this.saved_by = saved_by;
     }
 }

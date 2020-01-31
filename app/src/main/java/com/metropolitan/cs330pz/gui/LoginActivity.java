@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.metropolitan.cs330pz.MainActivity;
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.User;
+import com.metropolitan.cs330pz.util.AsteriskPasswordTransformationMethod;
 import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(MainActivity.sharedPreferences.getBoolean("user_logged-in", false)) {
+        if (MainActivity.sharedPreferences.getBoolean("user_logged-in", false)) {
 
             Log.e("Login", "User logged in: " + MainActivity.sharedPreferences.getBoolean("user_logged-in", false));
 
@@ -39,10 +41,11 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        final EditText usernameField = (EditText)findViewById(R.id.login_username);
-        final EditText passwdField = (EditText)findViewById(R.id.login_passwd);
+        final EditText usernameField = (EditText) findViewById(R.id.login_username);
+        final EditText passwdField = (EditText) findViewById(R.id.login_passwd);
+        passwdField.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
-        Button btnLogin = (Button)findViewById(R.id.login_btnLogin);
+        Button btnLogin = (Button) findViewById(R.id.login_btnLogin);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
 
-
         JsonPlaceholderAPI jsonPlaceholderAPI = retrofit.create(JsonPlaceholderAPI.class);
 
         Call<User> call = jsonPlaceholderAPI.getUser(username);
@@ -89,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 User user = response.body();
 
-                if(user.password.equals(passwd)) {
+                if (user.password.equals(passwd)) {
 
                     logInUser(user.getUsername(), user.getEmail(), user.getPassword());
 
@@ -97,27 +99,9 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(goToHome);
                     finish();
 
-                    /*Log.e("Login ",
-                            "User \"" + username + "\" logged in with password \"" + user.password +"\"");
-
-                    *//*MainActivity.sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
-                    MainActivity.prefsEditor = MainActivity.sharedPreferences.edit();*//*
-
-                    Log.e("NOTIFICATION", String.valueOf(MainActivity.sharedPreferences.getBoolean("user_logged-in", false)));
-
-                    MainActivity.prefsEditor.putBoolean("user_logged-in", true);
-                    MainActivity.prefsEditor.putString("username", user.getUsername());
-                    MainActivity.prefsEditor.putString("email", user.getEmail());
-                    MainActivity.prefsEditor.putString("passwd", user.getPassword());
-                    MainActivity.prefsEditor.commit();
-
-                    Log.e("NOTIFICATION", String.valueOf(MainActivity.sharedPreferences.getBoolean("user_logged-in", false)));
-
-                    Intent goToHome = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(goToHome);
-                    finish();*/
+                } else {
+                    Log.e("Login ERROR", "Wrong username or password!");
                 }
-                else {Log.e("Login ERROR", "Wrong username or password!");}
             }
 
             @Override
@@ -127,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     public String encryptPasswd(String username, String passwd) {
@@ -143,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
     public static void logInUser(String username, String email, String password) {
 
         Log.e("Login ",
-                "User \"" + username + "\" logged in with password \"" + password +"\"");
+                "User \"" + username + "\" logged in with password \"" + password + "\"");
 
                     /*MainActivity.sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
                     MainActivity.prefsEditor = MainActivity.sharedPreferences.edit();*/

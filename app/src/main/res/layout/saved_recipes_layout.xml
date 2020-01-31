@@ -6,15 +6,16 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/saved_recipes_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Saved recipes"
-        android:layout_marginBottom="10dp"
         android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Saved recipes"
         android:textAlignment="center"
+        android:textColor="#1BAF1B"
         android:textSize="30dp"
-        />
+
+        android:textStyle="bold" />
 
     <ListView
         android:layout_width="match_parent"

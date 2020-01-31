@@ -15,9 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.User;
+import com.metropolitan.cs330pz.util.AsteriskPasswordTransformationMethod;
 import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
 import android.util.Base64;
+
 import org.apache.commons.codec.digest.DigestUtils;
 
 import retrofit2.Call;
@@ -35,6 +37,9 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText usernameField = (EditText) findViewById(R.id.register_username);
         final EditText emailField = (EditText) findViewById(R.id.register_email);
         final EditText passwdField = (EditText) findViewById(R.id.register_passwd);
+        passwdField.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+        final EditText repeatPasswdField = (EditText) findViewById(R.id.repeat_register_passwd);
+        repeatPasswdField.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
         Button btnRegister = (Button) findViewById(R.id.register_btnRegister);
 
@@ -42,16 +47,20 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(passwdField.getText().toString().equals(repeatPasswdField.getText().toString())) {
 
-                User user = new User(
-                        usernameField.getText().toString(),
-                        emailField.getText().toString(),
-                        encryptPasswd(usernameField.getText().toString(),
-                                passwdField.getText().toString())
-                );
+                    User user = new User(
+                            usernameField.getText().toString(),
+                            emailField.getText().toString(),
+                            encryptPasswd(usernameField.getText().toString(),
+                                    passwdField.getText().toString())
+                    );
 
-                postUser(user);
+                    postUser(user);
+                }
+                else Toast.makeText(getBaseContext(), "Passwords don't match!", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 

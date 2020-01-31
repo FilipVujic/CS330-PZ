@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFDF9C77">
+    android:background="#EEEEEE">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -18,14 +18,16 @@
             android:gravity="center"
             android:text="Register"
             android:textAlignment="center"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:textColor="#1BAF1B"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/register_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="100dp"
             android:layout_marginRight="80dp"
             android:layout_marginBottom="30dp"
             android:hint="Username" />
@@ -45,8 +47,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
+            android:inputType="textPassword"
             android:hint="Password" />
+
+        <EditText
+            android:id="@+id/repeat_register_passwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="50dp"
+            android:inputType="textPassword"
+            android:hint="Retype password" />
 
         <Button
             android:id="@+id/register_btnRegister"
@@ -54,7 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="50dp"
-            android:text="Register" />
+            android:text="Register"
+            android:background="#1BAF1B"/>
 
         <TextView
             android:id="@+id/register_goToLoginTxt"

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">CS330PZ</string>
+    <string name="app_name">Omnom</string>
     <string name="url">http://192.168.56.1:8080/CS330_PZ_RestServices/webresources/</string>
-    <string name="url2">http://192.168.56.1:8080/CS330_PZ_RestServices/webresources/entity.recipe</string>
 </resources>

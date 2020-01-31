@@ -40,7 +40,6 @@ public class HomeActivity extends AppCompatActivity implements SearchAdapter.OnS
     boolean alertShown = false;
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -56,8 +55,8 @@ public class HomeActivity extends AppCompatActivity implements SearchAdapter.OnS
         final TextView resultField = (TextView) findViewById(R.id.home_result);*/
         final ListView listView = (ListView) findViewById(R.id.listViewID);
         //SearchView searchView = (SearchView) findViewById(R.id.simpleSearchView);
-        final EditText searchBar = (EditText)findViewById(R.id.home_search);
-        ImageButton searchButton = (ImageButton)findViewById(R.id.home_searchButton);
+        final EditText searchBar = (EditText) findViewById(R.id.home_search);
+        ImageButton searchButton = (ImageButton) findViewById(R.id.home_searchButton);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +130,7 @@ public class HomeActivity extends AppCompatActivity implements SearchAdapter.OnS
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
 
                 Log.e("Fetch error", t.toString());
-                if(!alertShown) {
+                if (!alertShown) {
                     showNoInternetAlert();
                 }
             }
@@ -167,18 +166,14 @@ public class HomeActivity extends AppCompatActivity implements SearchAdapter.OnS
         MenuItem mnu1 = menu.add(0, 0, 0, "Profile");
         {
 
-/*            mnu1.setAlphabeticShortcut('a');
-            mnu1.setIcon(R.mipmap.ic_launcher_round);*/
         }
         MenuItem mnu2 = menu.add(0, 1, 1, "Saved Recipes");
         {
-/*            mnu2.setAlphabeticShortcut('b');
-            mnu2.setIcon(R.mipmap.ic_launcher_round);*/
+
         }
         MenuItem mnu3 = menu.add(0, 2, 2, "My recipes");
         {
-/*            mnu3.setAlphabeticShortcut('c');
-            mnu3.setIcon(R.mipmap.ic_launcher_round);*/
+
         }
 
 

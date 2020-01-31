@@ -60,7 +60,7 @@ public class SearchAdapter {
 
                 Call<List<Recipe>> call1 = jsonPlaceholderAPI.getRecipesByTag(tag);
                 Call<List<Integer>> call2 = jsonPlaceholderAPI.getRecipeIDsByTag(tag);
-
+                Call<Recipe> call3;
 
                 try {
                     Response<List<Recipe>> response1 = call1.execute();
@@ -78,8 +78,9 @@ public class SearchAdapter {
 
                     List<Integer> list2 = response2.body();
 
+
                     for (Integer integer : list2) {
-                        Call<Recipe> call3 = jsonPlaceholderAPI.getRecipeById(integer);
+                        call3 = jsonPlaceholderAPI.getRecipeById(integer);
                         Response<Recipe> response3 = call3.execute();
                         Recipe recipe = response3.body();
                         recipeList.add(recipe);

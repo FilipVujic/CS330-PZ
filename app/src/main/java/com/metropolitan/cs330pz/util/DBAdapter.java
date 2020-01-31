@@ -122,7 +122,7 @@ public class DBAdapter extends SQLiteOpenHelper {
 
         int check;
 
-        check = db.update(DATABASE_TABLE, values, KEY_ID + "=" + broj_indeksa, null );
+        check = db.update(DATABASE_TABLE, values, KEY_ID + "=" + broj_indeksa, null);
 
         if (check == -1) return false;
         return true;

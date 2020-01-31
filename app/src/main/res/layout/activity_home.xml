@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#58A362"
+    android:background="#EEEEEE"
     android:orientation="vertical">
 
     <FrameLayout
@@ -22,7 +22,10 @@
             android:layout_marginBottom="10dp"
             android:text="Home"
             android:textAlignment="center"
-            android:textSize="30dp" />
+            android:textColor="#1BAF1B"
+            android:textSize="30dp"
+
+            android:textStyle="bold" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -86,18 +89,11 @@
     </LinearLayout>
 
 
-    <!--    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/home_result"
-        />-->
-
     <ListView
         android:id="@+id/listViewID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/home_search_linLayout"
-        android:background="#009C27B0"
         android:padding="5dp"
         tools:listitem="@layout/recipe_list_item_layout" />
 

@@ -31,7 +31,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
     private static CustomAdapter adapter;
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         // put your code here...
         fetchData();
@@ -43,9 +43,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
 
         setContentView(R.layout.saved_recipes_layout);
 
-        /*final EditText searchField = (EditText) findViewById(R.id.home_search);
-        final TextView resultField = (TextView) findViewById(R.id.home_result);*/
-        final ListView listView = (ListView) findViewById(R.id.listViewID);
+        ListView listView = (ListView) findViewById(R.id.listViewID);
 
         dataModels = new ArrayList<>();
 
@@ -69,8 +67,6 @@ public class SavedRecipesActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void updateList(List<Recipe> recipes) {
@@ -88,24 +84,13 @@ public class SavedRecipesActivity extends AppCompatActivity {
         Cursor c;
         c = db.getAllSavedRecipes();
         c.moveToFirst();
-        List <Recipe> recipes = new LinkedList<>();
+        List<Recipe> recipes = new LinkedList<>();
 
         Log.e("DB Operations", "Broj recepata " + c.getCount());
 
-        if(c.getCount() > 0) {
+        if (c.getCount() > 0) {
 
             do {
-
-
-            /*recipe.setId(c.getInt(0));
-            recipe.setUsername(c.getString(1));
-            recipe.setImage_url(c.getString(2));
-            recipe.setTitle(c.getString(3));
-            recipe.setSynopsis(c.getString(4));
-            recipe.setDescription(c.getString(5));
-            recipe.setIngredients(c.getString(6));
-            recipe.setPreparation(c.getString(7));*/
-
 
                 recipe = new Recipe(
                         c.getInt(0),
@@ -116,12 +101,20 @@ public class SavedRecipesActivity extends AppCompatActivity {
                         c.getString(5),
                         c.getString(6),
                         c.getString(7),
-                        c.getString(8)
+                        c.getString(8),
+                        c.getString(9)
                 );
 
-                Log.e("DB Operations", "ID recepta " + recipe.getId());
 
-                recipes.add(recipe);
+
+                //Log.e("DB Operations", "Kolona 8 " + c.getString(8));
+
+                //Log.e("DB Operations", "User logged in" + MainActivity.sharedPreferences.getString("user_logged-in", ""));
+
+                if(recipe.saved_by.equals(MainActivity.sharedPreferences.getString("username", ""))) {
+                    recipes.add(recipe);
+                }
+
             } while (c.moveToNext());
         }
 

@@ -55,7 +55,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
             viewHolder.title = (TextView) convertView.findViewById(R.id.recipeTitle);
             viewHolder.synopsis = (TextView) convertView.findViewById(R.id.recipeSynopsis);
             viewHolder.image = (ImageView) convertView.findViewById(R.id.imageView1ID);
-            viewHolder.username = (TextView)convertView.findViewById((R.id.recipeUsername));
+            viewHolder.username = (TextView) convertView.findViewById((R.id.recipeUsername));
 
             convertView.setTag(viewHolder);
         } else {

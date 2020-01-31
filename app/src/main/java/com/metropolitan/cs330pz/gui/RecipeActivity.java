@@ -47,7 +47,7 @@ public class RecipeActivity extends AppCompatActivity {
         final Recipe recipe;
 
         Intent test = getIntent();
-        recipe = (Recipe)test.getSerializableExtra("RecipeObj");
+        recipe = (Recipe) test.getSerializableExtra("RecipeObj");
         Log.e("NOTIFICATION", recipe.getRecipeTitle());
 
 
@@ -81,8 +81,7 @@ public class RecipeActivity extends AppCompatActivity {
         preparation.setText(recipe.getPreparation());
 
 
-
-        if(test.getStringExtra("From activity").equals("saved_recipes")) {
+        if (test.getStringExtra("From activity").equals("saved_recipes")) {
 
             Button btnRemoveFromFav = viewRecipe.findViewById(R.id.recipe_layout_btn);
             btnRemoveFromFav.setText("Remove from favourites");
@@ -100,15 +99,13 @@ public class RecipeActivity extends AppCompatActivity {
                     db.close();
                 }
             });
-        }
-        else if (test.getStringExtra("From activity").equals("home")) {
+        } else if (test.getStringExtra("From activity").equals("home")) {
 
             Button btnSaveToFav = viewRecipe.findViewById(R.id.recipe_layout_btn);
 
-            if(isInLocalDB(recipe)) {
+            if (isInLocalDB(recipe)) {
                 btnSaveToFav.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 btnSaveToFav.setText("Save to favourites");
                 btnSaveToFav.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -116,8 +113,9 @@ public class RecipeActivity extends AppCompatActivity {
                         db = new DBAdapter(getBaseContext());
                         db.open();
                         long check = db.insertRecipe(recipe);
-                        if (check != -1) Toast.makeText(getBaseContext(), "Recipe saved to favourites.",
-                                Toast.LENGTH_SHORT).show();
+                        if (check != -1)
+                            Toast.makeText(getBaseContext(), "Recipe saved to favourites.",
+                                    Toast.LENGTH_SHORT).show();
                         else Toast.makeText(getBaseContext(), "Error! Operation failed.",
                                 Toast.LENGTH_SHORT).show();
                         db.close();
@@ -125,9 +123,7 @@ public class RecipeActivity extends AppCompatActivity {
                 });
             }
 
-        }
-
-        else if (test.getStringExtra("From activity").equals("my_recipes")){
+        } else if (test.getStringExtra("From activity").equals("my_recipes")) {
 
             Button btnSaveRecipe = viewRecipe.findViewById(R.id.recipe_layout_btn);
             btnSaveRecipe.setText("Delete recipe");
@@ -146,17 +142,19 @@ public class RecipeActivity extends AppCompatActivity {
 
                                     deleteRecipeFromServer(recipe.getId());
 
-                                    if(isInLocalDB(recipe)) {
+                                    if (isInLocalDB(recipe)) {
 
                                         db = new DBAdapter(getBaseContext());
 
                                         db.open();
                                         boolean check = db.deleteRecipe(recipe.getId());
 
-                                        if (check) Toast.makeText(getBaseContext(), "Recipe deleted.",
-                                                Toast.LENGTH_SHORT).show();
-                                        else Toast.makeText(getBaseContext(), "Error! Operation failed.",
-                                                Toast.LENGTH_SHORT).show();
+                                        if (check)
+                                            Toast.makeText(getBaseContext(), "Recipe deleted.",
+                                                    Toast.LENGTH_SHORT).show();
+                                        else
+                                            Toast.makeText(getBaseContext(), "Error! Operation failed.",
+                                                    Toast.LENGTH_SHORT).show();
                                         db.close();
                                         dialog.cancel();
                                     }
@@ -216,10 +214,13 @@ public class RecipeActivity extends AppCompatActivity {
         Cursor c;
         c = db.getRecipe(recipe.getId());
 
-        if(c.getCount() == 1) {
+        //Log.e("Iz baze", c.getString(8));
+        if (c.getCount() == 1) {
 
-            db.close();
-            return true;
+            if (recipe.getSaved_by().equals(MainActivity.sharedPreferences.getString("username", ""))) {
+                db.close();
+                return true;
+            }
         }
         db.close();
         return false;
