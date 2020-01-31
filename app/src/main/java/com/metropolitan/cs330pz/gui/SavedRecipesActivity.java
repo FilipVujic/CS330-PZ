@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +16,6 @@ import com.metropolitan.cs330pz.R;
 import com.metropolitan.cs330pz.entity.Recipe;
 import com.metropolitan.cs330pz.util.CustomAdapter;
 import com.metropolitan.cs330pz.util.DBAdapter;
-import com.metropolitan.cs330pz.util.JsonPlaceholderAPI;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -41,7 +38,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.saved_recipes_layout);
+        setContentView(R.layout.layout_saved_recipes);
 
         ListView listView = (ListView) findViewById(R.id.listViewID);
 

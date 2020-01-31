@@ -32,7 +32,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
     }
 
     public CustomAdapter(ArrayList<Recipe> recipes, Context context) {
-        super(context, R.layout.recipe_list_item_layout, recipes);
+        super(context, R.layout.layout_recipe_list_item, recipes);
         //this.mContext = context;
     }
 
@@ -51,7 +51,7 @@ public class CustomAdapter extends ArrayAdapter<Recipe> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.recipe_list_item_layout, parent, false);
+            convertView = inflater.inflate(R.layout.layout_recipe_list_item, parent, false);
             viewHolder.title = (TextView) convertView.findViewById(R.id.recipeTitle);
             viewHolder.synopsis = (TextView) convertView.findViewById(R.id.recipeSynopsis);
             viewHolder.image = (ImageView) convertView.findViewById(R.id.imageView1ID);

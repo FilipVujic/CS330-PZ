@@ -9,11 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +50,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         View viewRecipe;
         LayoutInflater scrollLayout = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewRecipe = scrollLayout.inflate(R.layout.recipe_layout, null);
+        viewRecipe = scrollLayout.inflate(R.layout.layout_recipe, null);
 
         ImageView image = viewRecipe.findViewById(R.id.recipe_layout_coverPhoto);
         RequestOptions options = new RequestOptions()

@@ -19,13 +19,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create recipe"
-        android:textStyle="bold"
-        android:textSize="30dp"
-        android:textColor="#181a19"
         android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
-        />
+        android:layout_marginBottom="10dp"
+        android:text="Create recipe"
+        android:textAlignment="center"
+        android:textColor="#1BAF1B"
+        android:textSize="30dp"
+
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +34,7 @@
         android:layout_gravity="center"
         android:text="Title"
         android:textSize="17dp"
-        android:textColor="#181a19"
+        android:textColor="#1BAF1B"
         />
 
     <EditText
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
+        android:textColor="#424242"
     />
 
     <TextView
@@ -50,7 +52,7 @@
         android:layout_gravity="center"
         android:text="Synopsis"
         android:textSize="17dp"
-        android:textColor="#181a19"
+        android:textColor="#1BAF1B"
         />
 
     <EditText
@@ -58,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
+        android:textColor="#424242"
         />
 
     <EditText
@@ -68,6 +71,7 @@
         android:hint="Separate with commas, no spaces!"
         android:textAlignment="center"
         android:gravity="center"
+        android:textColor="#424242"
         />
 
     <TextView
@@ -76,7 +80,7 @@
         android:layout_gravity="center"
         android:text="Description"
         android:textSize="17dp"
-        android:textColor="#181a19"
+        android:textColor="#1BAF1B"
         />
 
 
@@ -88,6 +92,7 @@
         android:gravity="top"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
+        android:textColor="#424242"
         />
 
     <TextView
@@ -96,7 +101,7 @@
         android:text="Ingredients"
         android:layout_gravity="center"
         android:textSize="17dp"
-        android:textColor="#181a19"
+        android:textColor="#1BAF1B"
         />
 
     <EditText
@@ -107,6 +112,7 @@
         android:gravity="top"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
+        android:textColor="#424242"
         />
 
     <TextView
@@ -115,7 +121,7 @@
         android:text="Preparation"
         android:layout_gravity="center"
         android:textSize="17dp"
-        android:textColor="#181a19"
+        android:textColor="#1BAF1B"
         />
 
     <EditText
@@ -126,6 +132,7 @@
         android:gravity="top"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
+        android:textColor="#424242"
         />
 
     <TextView
@@ -134,7 +141,7 @@
         android:text="Image url"
         android:layout_gravity="center"
         android:textSize="17dp"
-        android:textColor="#181a19"
+        android:textColor="#1BAF1B"
         />
 
     <EditText
@@ -142,6 +149,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/create_recipe_image_url"
         android:layout_gravity="center"
+        android:textColor="#424242"
         />
 
     <Button
@@ -149,6 +157,8 @@
         android:layout_height="match_parent"
         android:id="@+id/create_recipe_button"
         android:text="Create recipe"
+        android:background="#1BAF1B"
+        android:textColor="#802F00"
         android:layout_gravity="center"
         />
 

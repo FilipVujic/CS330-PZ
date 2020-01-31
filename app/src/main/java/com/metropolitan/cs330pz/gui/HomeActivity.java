@@ -3,7 +3,10 @@ package com.metropolitan.cs330pz.gui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -163,15 +166,25 @@ public class HomeActivity extends AppCompatActivity implements SearchAdapter.OnS
 
     private void CreateMenu(Menu menu) {
         menu.setQwertyMode(true);
-        MenuItem mnu1 = menu.add(0, 0, 0, "Profile");
+
+        SpannableString savedRecipesTitle = new SpannableString("Saved recipes");
+        savedRecipesTitle.setSpan(new ForegroundColorSpan(Color.parseColor("#1BAF1B")), 0, savedRecipesTitle.length(), 0);
+
+        SpannableString myRecipesTitle = new SpannableString("My recipes");
+        myRecipesTitle.setSpan(new ForegroundColorSpan(Color.parseColor("#8F3700")), 0, myRecipesTitle.length(), 0);
+
+        SpannableString profileTitle = new SpannableString("Profile");
+        profileTitle.setSpan(new ForegroundColorSpan(Color.parseColor("#1BAF1B")), 0, profileTitle.length(), 0);
+
+        MenuItem mnu1 = menu.add(0, 0, 0, savedRecipesTitle);
         {
 
         }
-        MenuItem mnu2 = menu.add(0, 1, 1, "Saved Recipes");
+        MenuItem mnu2 = menu.add(0, 1, 1, myRecipesTitle);
         {
 
         }
-        MenuItem mnu3 = menu.add(0, 2, 2, "My recipes");
+        MenuItem mnu3 = menu.add(0, 2, 2, profileTitle);
         {
 
         }
@@ -184,18 +197,20 @@ public class HomeActivity extends AppCompatActivity implements SearchAdapter.OnS
         switch (item.getItemId()) {
 
             case 0:
-                Intent goToProfile = new Intent(getBaseContext(), ProfileActivity.class);
-                startActivity(goToProfile);
-                return true;
-
-            case 1:
                 Intent goToSavedRecipes = new Intent(getBaseContext(), SavedRecipesActivity.class);
                 startActivity(goToSavedRecipes);
                 return true;
 
-            case 2:
+            case 1:
+
                 Intent goToMyRecipes = new Intent(getBaseContext(), MyRecipesActivity.class);
                 startActivity(goToMyRecipes);
+                return true;
+
+            case 2:
+
+                Intent goToProfile = new Intent(getBaseContext(), ProfileActivity.class);
+                startActivity(goToProfile);
                 return true;
         }
         return false;

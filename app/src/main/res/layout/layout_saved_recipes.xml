@@ -22,7 +22,7 @@
         android:padding="5dp"
         android:layout_height="wrap_content"
         android:id="@+id/listViewID"
-        tools:listitem="@layout/recipe_list_item_layout"
+        tools:listitem="@layout/layout_recipe_list_item"
         />
 
 </LinearLayout>

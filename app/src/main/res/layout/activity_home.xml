@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/home_search_linLayout"
         android:padding="5dp"
-        tools:listitem="@layout/recipe_list_item_layout" />
+        tools:listitem="@layout/layout_recipe_list_item" />
 
     <!--    <include layout="@layout/list_view"
         android:id="@+id/home_list"
